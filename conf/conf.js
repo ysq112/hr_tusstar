@@ -6,3 +6,5 @@ const Config = {
     AdminPassword: "zxcvbnm123"
 };
 module.exports = Config;
+
+// var

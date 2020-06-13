@@ -20,11 +20,11 @@ app.use(session({
 }));
 
 var pool = mysql.createPool({
-    host: '139.199.18.17',
+    host: 'localhost',
     user: 'root',
-    password: 'zxcvbnm123',
+    password: '123456',
     port: '3306',
-    database: 'testdb1'
+    database: 'tusstar'
 });
 
 var query = function (sql, options, callback) {
@@ -787,7 +787,7 @@ app.use('/center', function (request, response) {
 
 app.use('/', express.static(Config.WebDir))
 
-var server = app.listen(Config.Port, Config.Hostname, function () {
+app.listen(Config.Port, Config.Hostname, function () {
     var host = Config.Hostname
     var port = Config.Port
     log.print("Server Listening on " + host + ":" + port)

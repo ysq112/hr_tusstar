@@ -85,8 +85,8 @@
                         <img src="images/logo-dark.png" alt="" class="logo-dark" height="18" />
                     </a>
                 </div>
-                <div class="buy-button">
-                    <a href="post-a-job.html" class="btn btn-primary"><i class="mdi mdi-cloud-upload"></i>发布一个工作</a>
+                <div class="buy-button" v-if = "showtype!=''">
+                    <a :href="turntype" class="btn btn-primary"><i class="mdi mdi-cloud-upload"></i>{{showtype}}</a>
                 </div>
                 <!--end login button-->
                 <!-- End Logo container-->
@@ -502,7 +502,8 @@
                     entrance:"",
                     information2: "",
                     name: "",
-                    newlin: ""
+                    newlin: "",
+                    showtype:""
                 },
                 methods: {
                     insert: function (response) {
@@ -610,10 +611,14 @@
                                 self.phone = response.data.phone
                                 if (self.isadmin == "2") {
                                     self.newlin = "/enterpriseCenter.html?phone=" + "'" + self.phone + "'"
+                                    self.showtype = "发布一个岗位"
+                                    self.turntype = "/post-a-job.html"
                                     console.log(newlin)
                                 }
                                 if (self.isadmin == "0") {
                                     self.newlin = "/userCenter.html?phone=" + "'" + self.phone + "'"
+                                    self.showtype = "完善简历"
+                                    self.turntype = "create-resume.html"
                                     console.log(newlin)
                                 }
                             }

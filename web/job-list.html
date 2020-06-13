@@ -12,10 +12,10 @@
     <script src="js/axios.min.js"></script>
 
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/vue.js"></script>
     <!-- 引入组件库 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="js/index.js"></script>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -81,8 +81,8 @@
                         <img src="images/logo-dark.png" alt="" class="logo-dark" height="18" />
                     </a>
                 </div>
-                <div class="buy-button">
-                    <a href="post-a-job.html" class="btn btn-primary"><i class="mdi mdi-cloud-upload"></i>发布一个工作</a>
+                <div class="buy-button" v-if = "showtype!=''">
+                    <a :href="turntype" class="btn btn-primary"><i class="mdi mdi-cloud-upload"></i>{{showtype}}</a>
                 </div>
                 <!--end login button-->
                 <!-- End Logo container-->
@@ -588,7 +588,8 @@
                 pagesize: 10, // 每页的数据
                 mingcheng: "",
                 didian: "",
-                fenlei: ""
+                fenlei: "",
+                showtype:""
             },
             methods: {
                 // 初始页currentPage、初始每页数据数pagesize和数据data
@@ -641,11 +642,15 @@
                             self.phone = response.data.phone
                             if (self.isadmin == "2") {
                                 self.newlin = "/enterpriseCenter.html?phone=" + "'" + self.phone + "'"
-                                console.log(newlin)
+                                self.showtype = "发布一个岗位"
+                                self.turntype = "/post-a-job.html"
+                                console.log(self.newlin)
                             }
                             if (self.isadmin == "0") {
                                 self.newlin = "/userCenter.html?phone=" + "'" + self.phone + "'"
-                                console.log(newlin)
+                                self.showtype = "完善简历"
+                                self.turntype = "create-resume.html"
+                                console.log(self.newlin)
                             }
                         }
                     })

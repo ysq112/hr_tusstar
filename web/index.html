@@ -879,6 +879,7 @@
             },
             mounted() {
                 var self = this
+                console.log(self)
                 axios.post('/bussiness', {
                     code: "1004"
                 })
@@ -918,13 +919,13 @@
                                 self.newlin = "/enterpriseCenter.html?phone=" + "'" + self.phone + "'"
                                 self.showtype = "发布一个岗位"
                                 self.turntype = "/post-a-job.html"
-                                console.log(newlin)
+                                console.log(self.newlin)
                             }
                             if (self.isadmin == "0") {
                                 self.newlin = "/userCenter.html?phone=" + "'" + self.phone + "'"
                                 self.showtype = "完善简历"
                                 self.turntype = "create-resume.html"
-                                console.log(newlin)
+                                console.log(self.newlin)
                             }
                         }
                     })

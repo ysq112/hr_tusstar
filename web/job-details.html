@@ -56,10 +56,10 @@
                     </div>
                     <div class="float-right">
                         <ul class="topbar-list list-unstyled d-flex" style="margin: 11px 0px;">
-                            <li class="list-inline-item"><a href="javascript:void(0);"><i
-                                        class="mdi mdi-account mr-2"></i>{{namer}}</a></li>
-                            <li class="list-inline-item"><a :href="newlin"><i
-                                        class="mdi mdi-account-box mr-2"></i>个人中心</a></li>
+                            <li class="list-inline-item"><a href="javascript:void(0);">
+                            <i class="mdi mdi-account mr-2"></i>{{namer}}</a></li>
+                            <li class="list-inline-item"><a :href="newlin">
+                            <i class="mdi mdi-account-box mr-2"></i>个人中心</a></li>
                         </ul>
                     </div>
                     <div class="clearfix"></div>
@@ -105,8 +105,8 @@
                             <ul class="submenu">
                                 <li><a href="about.html">关于我们</a></li>
                                 <li><a href="faq.html">常见问题</a></li>
-                                <li class="has-submenu"><a href="javascript:void(0)">应聘者</a><span
-                                        class="submenu-arrow"></span>
+                                <li class="has-submenu"><a href="javascript:void(0)">应聘者</a>
+                                <span class="submenu-arrow"></span>
                                     <ul class="submenu">
                                         <li><a href="candidates-listing.html">应聘者列表</a></li>
                                         <li><a href="create-resume.html">新建简历</a></li>
@@ -123,7 +123,6 @@
                                 <li><a href="companysignup.html">企业注册</a></li>
                                 <li><a href="recovery_passward.html">忘记密码</a></li>
                             </ul>
-                        </li>
                         </li>
                         <li>
                             <a href="contact.html">联系我们</a>
@@ -149,7 +148,7 @@
                             <h4 class="text-uppercase title mb-4">岗位描述</h4>
                             <ul class="page-next d-inline-block mb-0">
                                 <li><a href="index.html" class="text-uppercase font-weight-bold">主页</a></li>
-                                <li><a href="#" class="text-uppercase font-weight-bold">工作岗位</a></li>
+                                <li><a href="job-list.html" class="text-uppercase font-weight-bold">工作岗位</a></li>
                                 <li>
                                     <span class="text-uppercase text-white font-weight-bold">岗位描述</span>
                                 </li>
@@ -163,7 +162,7 @@
 
         <!-- JOB DETAILS START -->
         <section class="section">
-            <div class="container" id="app">
+            <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-md-7">
                         <div class="job-detail border rounded p-4">
@@ -172,7 +171,6 @@
                                     class="img-fluid float-left mr-md-3 mr-2 mx-auto d-block">
                                 <div class="job-detail-com-desc overflow-hidden d-block">
                                     <h4 class="mb-2"><a href="#" class="text-dark">{{info.companyname}}</a></h4>
-                                    </p>
                                     <p class="text-muted mb-0"><i class="mdi mdi-map-marker mr-2"></i>{{info.place}}</p>
                                 </div>
                             </div>
@@ -353,7 +351,7 @@
                 <div class="row justify-content-center">
                     <div class="col-12">
                         <div class="">
-                            <p class="mb-0">© 2019 启迪之星(青海). Design </i> by <a href="https://www.qhu.edu.cn/">青海大学</a>.
+                            <p class="mb-0">© 2019 启迪之星(青海). Design by <a href="https://www.qhu.edu.cn/">青海大学</a>.
                             </p>
                         </div>
                     </div>
@@ -393,9 +391,9 @@
                     namer: "",
                     newlin: ""
                 },
-                mounted() {
-                    name = this.getUrlKey("name", window.location.href)
-                    var self = this
+                mounted() { //页面渲染完成后执行这一块
+                    const name = this.getUrlKey("name", window.location.href)
+                    let self = this;
                     axios.post('/bussiness', {
                         code: "1003",
                         name: name,
@@ -427,11 +425,11 @@
                                 self.phone = response.data.phone
                                 if (self.isadmin == "2") {
                                     self.newlin = "/enterpriseCenter.html?phone=" + "'" + self.phone + "'"
-                                    console.log(newlin)
+                                    console.log("企业中心："+newlin)
                                 }
                                 if (self.isadmin == "0") {
                                     self.newlin = "/userCenter.html?phone=" + "'" + self.phone + "'"
-                                    console.log(newlin)
+                                    console.log("个人中心："+newlin)
                                 }
                             }
                         })
@@ -479,11 +477,8 @@
                                 })
                         }
                     }
-
-
                 }
             })
     </script>
 </body>
-
 </html>

@@ -129,7 +129,6 @@
                                 <li><a href="recovery_passward.html">忘记密码</a></li>
                             </ul>
                         </li>
-                        </li>
                         <li>
                             <a href="contact.html">联系我们</a>
                         </li>
@@ -171,12 +170,12 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-10">
                         <div class="home-registration-form job-list-reg-form bg-light shadow p-4 mb-3">
-                            <form class="registration-form">
+                            <form method="GET" class="registration-form">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-6">
                                         <div class="registration-form-box">
                                             <i class="fa fa-briefcase"></i>
-                                            <input type="text" id="exampleInputName1"
+                                            <input type="text" id="mingcheng" name="mingcheng"
                                                 class="form-control rounded registration-input-box" placeholder="工作名称"
                                                 v-model="mingcheng">
                                         </div>
@@ -184,7 +183,7 @@
                                     <div class="col-lg-3 col-md-6">
                                         <div class="registration-form-box">
                                             <i class="fa fa-location-arrow"></i>
-                                            <input type="text" id="exampleInputName1"
+                                            <input type="text" id="didian" name="didian"
                                                 class="form-control rounded registration-input-box" placeholder="工作地点"
                                                 v-model="didian">
                                         </div>
@@ -192,16 +191,15 @@
                                     <div class="col-lg-3 col-md-6">
                                         <div class="registration-form-box">
                                             <i class="fa fa-list-alt"></i>
-                                            <input type="text" id="exampleInputName1"
+                                            <input type="text" id="fenlei" name="fenlei"
                                                 class="form-control rounded registration-input-box" placeholder="职位分类"
                                                 v-model="fenlei">
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <div class="registration-form-box">
-                                            <input type="submit" id="submit" name="send"
-                                                class="submitBnt btn btn-primary btn-block" value="立即查询(暂未开放)"
-                                                v-on:click='chaxun'>
+                                            <input type="submit" id="submit"
+                                                class="submitBnt btn btn-primary btn-block" value="立即查询" v-on:click="chaxun">
                                         </div>
                                     </div>
                                 </div>
@@ -551,7 +549,7 @@
             <div class="row justify-content-center">
                 <div class="col-12">
                     <div class="">
-                        <p class="mb-0">© 2019 启迪之星(青海). Design </i> by <a href="https://www.qhu.edu.cn/">青海大学</a>.</p>
+                        <p class="mb-0">© 2019 启迪之星(青海). Design by <a href="https://www.qhu.edu.cn/">青海大学</a>.</p>
                     </div>
                 </div>
             </div>
@@ -615,20 +613,68 @@
                         .catch(function (error) {
                             console.log(error);
                         })
+                },
+                getQueryVariable: function (variable) {
+                    var query = window.location.search.substring(1);
+                    var vars = query.split("&");
+                    for (var i = 0; i < vars.length; i++) {
+                        var pair = vars[i].split("=");
+                        if (pair[0] == variable) { return pair[1]; }
+                    }
+                    return "";
                 }
             },
             mounted() {
+                var mingcheng = decodeURI(this.getQueryVariable("mingcheng"))
+                var didian = decodeURI(this.getQueryVariable("didian"))
+                var fenlei = decodeURI(this.getQueryVariable("fenlei"))
+                var t = new Object()
+                if (mingcheng) {
+                    if (mingcheng != "") {
+                        t.mingcheng = mingcheng
+                        this.mingcheng = mingcheng
+                    }
+                }
+                if (didian) {
+                    if (didian != "") {
+                        t.didian = didian
+                        this.didian = didian
+                    }
+                }
+                if (fenlei) {
+                    if (fenlei != "") {
+                        t.fenlei = fenlei
+                        this.fenlei = fenlei
+                    }
+                }
                 var self = this
-                axios.post('/bussiness', {
-                    code: "1004"
-                })
-                    .then(function (response) {
-                        self.infos = response.data
-                        console.log(response);
+                console.log(t)
+                if (t.mingcheng != undefined || t.didian != undefined || t.fenlei != undefined) {
+                    axios.post('/bussiness', {
+                        code: "1016",
+                        mingcheng: t.mingcheng,
+                        didian: t.didian,
+                        fenlei: t.fenlei
                     })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                        .then(function (response) {
+                            self.infos = response.data
+                            console.log(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                } else {
+                    axios.post('/bussiness', {
+                        code: "1004"
+                    })
+                        .then(function (response) {
+                            self.infos = response.data
+                            console.log(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }
                 axios.post('/users', {
                     code: "1005",
                 })

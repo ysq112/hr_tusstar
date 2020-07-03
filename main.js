@@ -1,14 +1,14 @@
 var fs = require('fs') //文件操作库
 var path = require('path') //地址操作库
-var http = require('http'); //http服务库
+var http = require('http') //http服务库
 var Config = require('./conf/conf') //自己写的配置信息文件
 var ContentType = require('./lib/contenttype') //自己写的contenttype获取库
-var log = require('./utils/log') //自己写的日志出库输
-var mysql = require('mysql')
-var express = require('express')
+var log = require('./utils/log') //自己写的日志输出库
+var mysql = require('mysql')    //使用mysql数据库
+var express = require('express')    //引入express框架
 var session = require('express-session')
-var bodyparser = require('body-parser')
-var multer = require('multer');
+var bodyparser = require('body-parser') //http请求体解析中间件
+var multer = require('multer')  //用于处理 multipart/form-data 类型的表单数据，它主要用于上传文件
 var app = express()
 app.use(session({
     secret: "session",
@@ -43,12 +43,17 @@ var query = function (sql, options, callback) {
     });
 };
 
-app.use(multer({ dest: '/tmp/' }).array('image')); 02
-app.use(bodyparser.json())
-app.use(bodyparser.urlencoded({ extended: true }))
+app.use(multer({ dest: '/tmp/' }).array('image'));  //在系统盘创建一个tmp文件加，上传的文件是图片类型
+/**
+ * 模块会处理application/x-www-form-urlencoded、application/json两种内容格式的请求体。
+ * 经过这个中间件处理后，就可以在所有路由处理器的req.body中访问请求参数 
+ **/
+app.use(bodyparser.json())  //解析json数据格式
+app.use(bodyparser.urlencoded({ extended: true }))  //解析通常的form表单提交的数据
+//上传营业执照的地方
 app.use('/upload', function (request, response) {
-    console.log("1")
-    var des_file = __dirname + path.sep + "upload" + path.sep + request.files[0].originalname;
+    console.log("要上传营业执照了")
+    var des_file = __dirname + path.sep + "upload" + path.sep + request.files[0].originalname;  //要上传的地方
     fs.readFile(request.files[0].path, function (err, data) {
         if (err) {
             console.log(err);
@@ -65,7 +70,7 @@ app.use('/upload', function (request, response) {
                     var imgParam = [request.files[0].originalname, des_file]
                     query(imginsert, imgParam, function (err, result) {
                         if (err) {
-                            console.log(err);
+                            console.log(err+"img插入错误");
                         }
                     })
                 }
@@ -75,10 +80,10 @@ app.use('/upload', function (request, response) {
 })
 app.use('/users', function (request, response) {
     if (request.body.code == '1001') {//用户注册
-        console.log(request.body);
+        console.log("注册人员信息："+request.body);
         var CheckAddSql = "select * from users where phone = " + " '" + request.body.phone + "' "
         query(CheckAddSql, function (err, result) {
-            console.log(result.length)
+            console.log("用户注册时查询相应账号数据返回的长度是"+result.length)
             if (err) {
                 console.log('[select-error] - ' + err.message);
                 response.end('error');
@@ -106,10 +111,10 @@ app.use('/users', function (request, response) {
             }
         })
     }
-    else if (request.body.code == "1002") {//用户申请
+    else if (request.body.code == "1002") {//用户申请职位
         console.log(request.body)
         phone = request.session.phone
-        name = request.session.username
+        const name = request.session.username
         if (request.session.studentisadmin == 0) {
             var selectifresume = "select * from resume where phone = " + "'" + phone + "'"
             query(selectifresume, function (err, result) {
@@ -281,7 +286,6 @@ app.use('/bussiness', function (request, response) {
             }
             else {
                 response.end("success")
-                return
             }
         })
     }
@@ -291,15 +295,14 @@ app.use('/bussiness', function (request, response) {
             return
         }
         var selectjob = "select * from job where companyname = ?;"
+        console.log(request.body.name)
         query(selectjob, request.body.name, function (err, result) {
             if (err) {
                 response.end("error")
                 console.log("error-" + err.message)
-                return
             }
             else {
                 response.end(JSON.stringify(result))
-                return
             }
         })
 
@@ -559,28 +562,28 @@ app.use('/bussiness', function (request, response) {
     }
     else if (request.body.code == "1016") {//搜索
         console.log(request.body)
-        var selectcompanynum = "select * from joblist where "
+        var selectcompanynum = "select * from job where "
         var mid = ""
-        if (request.body.mingcheng != "") {
-            selectcompanynum = selectcompanynum + "mingcheng = " + "'" + request.body.mingcheng + "'"
+        if (request.body.mingcheng != "" && request.body.mingcheng != undefined) {
+            selectcompanynum = selectcompanynum + "companyname = " + "'" + request.body.mingcheng + "'"
             mid = "1"
         }
-        if (request.body.didian != "") {
+        if (request.body.didian != "" && request.body.didian != undefined) {
             if (mid == "1") {
-                selectcompanynum = selectcompanynum + " and mingcheng = " + "'" + request.body.didian + "'"
+                selectcompanynum = selectcompanynum + " and place = " + "'" + request.body.didian + "'"
                 mid = "2"
             }
             else if (mid == "") {
-                selectcompanynum = selectcompanynum + "mingcheng = " + "'" + request.body.didian + "'"
+                selectcompanynum = selectcompanynum + "place = " + "'" + request.body.didian + "'"
                 mid = "2"
             }
         }
-        if (request.body.fenlei != "") {
+        if (request.body.fenlei != "" && request.body.fenlei != undefined) {
             if (mid != "") {
-                selectcompanynum = selectcompanynum + " and fenlei = " + "'" + request.body.didian + "'"
+                selectcompanynum = selectcompanynum + " and type = " + "'" + request.body.fenlei + "'"
             }
             else if (mid == "") {
-                selectcompanynum = selectcompanynum + "fenlei = " + "'" + request.body.didian + "'"
+                selectcompanynum = selectcompanynum + "type = " + "'" + request.body.fenlei + "'"
             }
         }
         console.log(selectcompanynum)

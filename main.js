@@ -10,6 +10,8 @@ var session = require('express-session')
 var bodyparser = require('body-parser') //http请求体解析中间件
 var multer = require('multer')  //用于处理 multipart/form-data 类型的表单数据，它主要用于上传文件
 var app = express()
+var send = require("./email.js");
+var silly_datetime = require("silly-datetime");
 app.use(session({
     secret: "session",
     resave: true,
@@ -24,7 +26,8 @@ var pool = mysql.createPool({
     user: 'root',
     password: '123456',
     port: '3306',
-    database: 'tusstar'
+    database: 'tusstar',
+    timezone : "08:00"
 });
 
 var query = function (sql, options, callback) {
@@ -53,6 +56,7 @@ app.use(bodyparser.urlencoded({ extended: true }))  //解析通常的form表单�
 //上传营业执照的地方
 app.use('/upload', function (request, response) {
     console.log("要上传营业执照了")
+    console.log(request.files)
     var des_file = __dirname + path.sep + "upload" + path.sep + request.files[0].originalname;  //要上传的地方
     fs.readFile(request.files[0].path, function (err, data) {
         if (err) {
@@ -65,12 +69,12 @@ app.use('/upload', function (request, response) {
                 }
                 else {
                     response.end("上传成功")
-                    console.log(des_file)
+                    console.log("上传路径："+des_file)
                     var imginsert = "insert into img (phone,imgadress) value (?,?)"
                     var imgParam = [request.files[0].originalname, des_file]
                     query(imginsert, imgParam, function (err, result) {
                         if (err) {
-                            console.log(err+"img插入错误");
+                            console.log(err + "img插入错误");
                         }
                     })
                 }
@@ -286,8 +290,9 @@ app.use('/users', function (request, response) {
 })
 app.use('/bussiness', function (request, response) {
     if (request.body.code == '1001') {//发布工作
-        var addjob = "insert into job (companyname,worktype,type,place,company,money,edubackground,workyear,email,phone,detail2,detail3,welfare,contact) value (?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
-        var addjobParam = [request.body.companyname, request.body.worktype, request.body.type, request.body.place, request.session.phone, request.body.money, request.body.edubackground, request.body.workyear, request.body.email, request.body.phone, request.body.detail2, request.body.detail3, request.body.welfare, request.body.contact]
+        var time = silly_datetime.format(new Date(), "YYYY-MM-DD HH:mm:ss");
+        var addjob = "insert into job (companyname,worktype,type,place,company,money,edubackground,workyear,email,phone,detail2,detail3,welfare,contact, time) value (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        var addjobParam = [request.body.companyname, request.body.worktype, request.body.type, request.body.place, request.session.phone, request.body.money, request.body.edubackground, request.body.workyear, request.body.email, request.body.phone, request.body.detail2, request.body.detail3, request.body.welfare, request.body.contact, time]
         query(addjob, addjobParam, function (err, result) {
             if (err) {
                 response.end("error")
@@ -806,7 +811,6 @@ app.use('/center', function (request, response) {
                     list.push(result)
                     response.send(JSON.stringify(list))
                     return
-                    return
                 }
             })
         }
@@ -825,7 +829,7 @@ app.use('/logOut',function (request, response) {
   request.session.phone = ''
   request.session.username = ''
   request.session.studentisadmin = 0
-  // response.end("注销成功!")
+  response.end("注销成功!")
 })
 
 app.listen(Config.Port, Config.Hostname, function () {

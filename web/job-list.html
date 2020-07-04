@@ -469,7 +469,7 @@
 
                                                         <li class="list-inline-item">
                                                             <p class="text-muted mb-0"><i
-                                                                    class="mdi mdi-clock-outline mr-2"></i>1分钟之前</p>
+                                                                    class="mdi mdi-clock-outline mr-2"></i>{{info.time}}</p>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -587,7 +587,8 @@
                 mingcheng: "",
                 didian: "",
                 fenlei: "",
-                showtype:""
+                showtype:"",
+                releaseTime : ""
             },
             methods: {
                 // 初始页currentPage、初始每页数据数pagesize和数据data
@@ -669,7 +670,7 @@
                     })
                         .then(function (response) {
                             self.infos = response.data
-                            console.log(response);
+                            console.log("返回job列表的数据："+response.data);
                         })
                         .catch(function (error) {
                             console.log(error);

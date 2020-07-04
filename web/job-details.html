@@ -280,20 +280,19 @@
 
                                 <h6 class="text-dark f-17 mt-3 mb-0">分享给朋友:</h6>
                                 <ul class="social-icon list-inline mt-3 mb-0">
-                                    <li class="list-inline-item"><a href="#" class="rounded"><i
-                                                class="mdi mdi-facebook"></i></a></li>
-                                    <li class="list-inline-item"><a href="#" class="rounded"><i
-                                                class="mdi mdi-twitter"></i></a></li>
-                                    <li class="list-inline-item"><a href="#" class="rounded"><i
-                                                class="mdi mdi-google-plus"></i></a></li>
-                                    <li class="list-inline-item"><a href="#" class="rounded"><i
-                                                class="mdi mdi-whatsapp"></i></a></li>
-                                    <li class="list-inline-item"><a href="#" class="rounded"><i
-                                                class="mdi mdi-linkedin"></i></a></li>
+                                    <li class="list-inline-item"><a href="#" class="rounded" ><i
+                                                class="mdi mdi-facebook" onClick='copyUrl()' ></i></a></li>
+                                    <li class="list-inline-item"><a href="#" class="rounded" ><i
+                                                class="mdi mdi-twitter" onClick='copyUrl()'></i></a></li>
+                                    <li class="list-inline-item"><a href="#" class="rounded" ><i
+                                                class="mdi mdi-google-plus" onClick='copyUrl()'></i></a></li>
+                                    <li class="list-inline-item"><a href="#" class="rounded" ><i
+                                                class="mdi mdi-whatsapp" onClick='copyUrl()'></i></a></li>
+                                    <li class="list-inline-item"><a href="#" class="rounded" ><i
+                                                class="mdi mdi-linkedin" onClick='copyUrl()'></i></a></li>
                                 </ul>
                             </div>
                         </div>
-
                         <div class="job-detail border rounded mt-4">
                             <a href="#" class="btn btn-primary btn-block" v-on:click='insert'>申请这份职位</a>
                         </div>
@@ -425,11 +424,11 @@
                                 self.phone = response.data.phone
                                 if (self.isadmin == "2") {
                                     self.newlin = "/enterpriseCenter.html?phone=" + "'" + self.phone + "'"
-                                    console.log("企业中心："+newlin)
+                                    console.log("企业中心："+self.newlin)
                                 }
                                 if (self.isadmin == "0") {
                                     self.newlin = "/userCenter.html?phone=" + "'" + self.phone + "'"
-                                    console.log("个人中心："+newlin)
+                                    console.log("个人中心："+self.newlin)
                                 }
                             }
                         })
@@ -479,6 +478,61 @@
                     }
                 }
             })
+    </script>
+    <script language="javascript">
+        function copyUrl()
+        {
+            var clipBoardContent=this.location.href;
+            console.log(clipBoardContent);
+            CopyToClipboard(clipBoardContent);
+            alert("链接复制成功");
+        }
+        function CopyToClipboard (input) {
+            var textToClipboard = input;
+            var success = true;
+            if (window.clipboardData) {
+                window.clipboardData.setData ("Text", textToClipboard);
+            }
+            else {
+                var forExecElement = CreateElementForExecCommand (textToClipboard);
+                SelectContent (forExecElement);
+                var supported = true;
+                try {
+                    if (window.netscape && netscape.security) {
+                        netscape.security.PrivilegeManager.enablePrivilege ("UniversalXPConnect");
+                    }
+                    success = document.execCommand ("copy", false, null);
+                }
+                catch (e) {
+                    success = false;
+                }
+                document.body.removeChild (forExecElement);
+            }
+
+            if (!success) {
+                alert ("Your browser doesn't allow clipboard access!");
+            }
+        }
+
+        function CreateElementForExecCommand (textToClipboard) {
+            var forExecElement = document.createElement ("div");
+            forExecElement.style.position = "absolute";
+            forExecElement.style.left = "-10000px";
+            forExecElement.style.top = "-10000px";
+            forExecElement.textContent = textToClipboard;
+            document.body.appendChild (forExecElement);
+            forExecElement.contentEditable = true;
+
+            return forExecElement;
+        }
+
+        function SelectContent (element) {
+            var rangeToSelect = document.createRange ();
+            rangeToSelect.selectNodeContents (element);
+            var selection = window.getSelection ();
+            selection.removeAllRanges ();
+            selection.addRange (rangeToSelect);
+        }
     </script>
 </body>
 </html>

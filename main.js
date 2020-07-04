@@ -46,7 +46,7 @@ var query = function (sql, options, callback) {
 app.use(multer({ dest: '/tmp/' }).array('image'));  //在系统盘创建一个tmp文件加，上传的文件是图片类型
 /**
  * 模块会处理application/x-www-form-urlencoded、application/json两种内容格式的请求体。
- * 经过这个中间件处理后，就可以在所有路由处理器的req.body中访问请求参数 
+ * 经过这个中间件处理后，就可以在所有路由处理器的req.body中访问请求参数
  **/
 app.use(bodyparser.json())  //解析json数据格式
 app.use(bodyparser.urlencoded({ extended: true }))  //解析通常的form表单提交的数据
@@ -193,7 +193,7 @@ app.use('/users', function (request, response) {
             }
         })
     }
-    else if (request.body.code == "1004") {//判断登录，重置seesion
+    else if (request.body.code == "1004") {//判断登录，重置session
         var checkuser = "select * from users where phone = '" + request.body.phone + "'"
         query(checkuser, function (err, result) {
             if (err) {
@@ -789,6 +789,19 @@ app.use('/center', function (request, response) {
 })
 
 app.use('/', express.static(Config.WebDir))
+
+app.use('/logOut',function (request, response) {
+  // 打印session中保存的信息
+  //console.log(request.session)
+  // 打印前端传来的数据
+  //console.log(request.body)
+  response.setHeader('Content-type','application/json;charset=utf-8')
+  // 重置session
+  request.session.phone = ''
+  request.session.username = ''
+  request.session.studentisadmin = 0
+  // response.end("注销成功!")
+})
 
 app.listen(Config.Port, Config.Hostname, function () {
     var host = Config.Hostname

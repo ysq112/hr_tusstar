@@ -19,7 +19,7 @@ const log = {
         }
     },
     print: function(msg){
-        console.log('\x1b[97m',this.getNow() + ": ",msg)
+        console.log('\x1B[33m%s\x1b[0m:',this.getNow() + ": ",msg)
     },
     getNow: function(){
         var date = new Date();

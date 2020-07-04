@@ -66,10 +66,15 @@
                     </div>
                     <div class="float-right">
                         <ul class="topbar-list list-unstyled d-flex" style="margin: 11px 0px;">
-                            <li class="list-inline-item"><a :href="iflogin"><i
-                                        class="mdi mdi-account mr-2"></i>{{name}}</a></li>
-                            <li class="list-inline-item"><a :href=  "newlin" ><i
-                                        class="mdi mdi-account-box mr-2" ></i>个人中心</a></li>
+                            <li class="list-inline-item">
+                                <a :href="iflogin"><i class="mdi mdi-account mr-2"></i>{{name}}</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a :href="newlin"><i class="mdi mdi-account-box mr-2" ></i>个人中心</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="javascript:void(0)" v-on:click="logOut()"><i class="mdi mdi-account-box mr-2" ></i>注销</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="clearfix"></div>
@@ -924,6 +929,21 @@
                         console.log(error);
                     });
             },
+            methods: {
+              // 注销功能
+              logOut: function () {
+                axios
+                  .put("/logOut",{
+                    a: 1
+                  })
+                  .then(function (response){
+                    location.reload()
+                  })
+                  .catch(function (error) {
+                    console.log(error.message)
+                  })
+              }
+            }
         })
     </script>
 </body>

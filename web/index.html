@@ -740,7 +740,7 @@
                                 <i class="mdi mdi-file-document-box h1 text-white"></i>
                             </div>
                             <div class="counter-content overflow-hidden">
-                                <h1 class="counter-value text-white mb-1" data-count="480">80</h1>
+                                <h1 class="counter-value text-white mb-1" >{{jobnum}}</h1>
                                 <p class="counter-name text-white text-uppercase mb-0">岗位总计</p>
                             </div>
                         </div>
@@ -752,7 +752,7 @@
                                 <i class="mdi mdi-calendar-multiple-check h1 text-white"></i>
                             </div>
                             <div class="counter-content overflow-hidden">
-                                <h1 class="counter-value text-white mb-1" data-count="120">10</h1>
+                                <h1 class="counter-value text-white mb-1" >{{applicationnum}}</h1>
                                 <p class="counter-name text-white text-uppercase mb-0">累计申请</p>
                             </div>
                         </div>
@@ -763,7 +763,7 @@
                                 <i class="mdi mdi-account-multiple-plus h1 text-white"></i>
                             </div>
                             <div class="counter-content overflow-hidden">
-                                <h1 class="counter-value text-white mb-1" data-count="200">10</h1>
+                                <h1 class="counter-value text-white mb-1" >{{registernum}}</h1>
                                 <p class="counter-name text-white text-uppercase mb-0">注册用户</p>
                             </div>
                         </div>
@@ -864,6 +864,9 @@
                 name: "",
                 newlin:"",
                 companynum:0,
+                jobnum: 0,
+                applicationnum: 0,
+                registernum: 0,
                 iflogin:"",
                 showtype:"",
                 turntype:""
@@ -874,12 +877,14 @@
                 axios.post('/bussiness', {
                     code: "1004"
                 })
-                    .then(function (response) {
+                    .then(function (response) { //返回的是所有的岗位信息
                         self.infos = response.data
                         console.log(response);
                         self.infos1 = response.data
                         self.infos2 = response.data
                         self.infos3 = response.data
+                        self.jobnum = response.data.length
+                        console.log("岗位的个数："+self.jobnum)
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -889,7 +894,7 @@
                 })
                     .then(function (response) {
                         self.companynum = response.data
-                        console.log(self.companynum)
+                        console.log("公司的数目是"+self.companynum)
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -923,6 +928,25 @@
                     .catch(function (error) {
                         console.log(error);
                     });
+                axios
+                    .post("/users", {
+                        code : "1007"
+                    })
+                    .then(function (response) {
+                        self.registernum = response.data
+                        console.log("注册用户的数目："+self.registernum)
+                    })
+                    .catch(error=>{
+                        console.log(error)
+                    });
+                axios
+                    .post("/users", {
+                        code : "1008"
+                    })
+                    .then(function (response) {
+                        self.applicationnum = response.data
+                        console.log("累计申请数目："+self.applicationnum)
+                    })
             },
         })
     </script>

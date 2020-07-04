@@ -258,6 +258,31 @@ app.use('/users', function (request, response) {
             response.end(JSON.stringify(request.session))
         }
     }
+    else if (request.body.code == "1007"){ //得到注册用户的数目
+        var selectRegisters = "select * from users"
+        query(selectRegisters, function (err, results) {
+            if (err) {
+                log.err('[error]-' + error)
+                response.end('error')
+                return
+            }else {
+                response.end(JSON.stringify(results.length))
+                console.log("注册用户数目："+results.length)
+            }
+        })
+    }else if (request.body.code == "1008"){ //得到申请数目
+        var selectApplications = "select * from joblist"
+        query(selectApplications, function (err, results) {
+            if (err) {
+                log.err('[error]-' + error)
+                response.end('error')
+                return
+            }else {
+                response.end(JSON.stringify(results.length))
+                console.log("累计申请数目："+results.length)
+            }
+        })
+    }
 })
 app.use('/bussiness', function (request, response) {
     if (request.body.code == '1001') {//发布工作
@@ -547,14 +572,14 @@ app.use('/bussiness', function (request, response) {
         }
     }
     else if (request.body.code == "1015") {//查询各类数值index页面
-        var selectcompanynum = "select * from companyusers "
+        var selectcompanynum = "select * from users where isadmin = '2'"
         query(selectcompanynum, function (err, result) {
             if (err) {
                 response.end("error")
                 console.log("error-" + err.message)
             }
             else {
-                console.log(JSON.stringify(result.length))
+                console.log("企业的个数："+JSON.stringify(result.length))
                 response.end(JSON.stringify(result.length))
                 return
             }

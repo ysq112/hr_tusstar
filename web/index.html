@@ -9,6 +9,7 @@
     <meta name="keywords" content="" />
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <script src="js/jquery.min.js"></script>
+
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.easing.min.js"></script>
     <script src="js/plugins.js"></script>
@@ -64,17 +65,21 @@
                             启迪之星公司-在线人才招聘
                         </div>
                     </div>
-                    <div class="float-right">
 
-                        <ul class="topbar-list list-unstyled d-flex" style="margin: 11px 0px;">
-                            <li class="list-inline-item">
-                                <a :href="iflogin"><i class="mdi mdi-account mr-2"></i>{{name}}</a>
+                    <div class="float-right">
+                        <ul class="navigation-menu topbar-list list-unstyled d-flex" style="margin: 11px 0px;">
+                            <li class="has-submenu">
+                                <a href="javascript:void(0);" style="font-size: 15px;"><i class="mdi mdi-account mr-2"></i>{{name}}</a><span class="menu-arrow"></span>
+                                <ul class="submenu" v-if="name === '未登录'">
+                                    <li><a href="/login.html" style="font-size: 15px;">登录</a></li>
+                                    <li><a href="/signup.html" style="font-size: 15px;">注册</a></li>
+                                </ul>
+                                <ul class="submenu" v-else>
+                                    <li><a href="javascript:void(0);" v-on:click="logOut()" style="font-size: 15px;">注销</a></li>
+                                </ul>
                             </li>
                             <li class="list-inline-item">
-                                <a :href="newlin"><i class="mdi mdi-account-box mr-2" ></i>个人中心</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="javascript:void(0)" v-on:click="logOut()"><i class="mdi mdi-account-box mr-2" ></i>注销</a>
+                                <a :href="newlin" style="font-size: 15px;"><i class="mdi mdi-account-box mr-2" ></i>个人中心</a>
                             </li>
                         </ul>
                     </div>
@@ -110,7 +115,7 @@
                         <!-- End mobile menu toggle-->
                     </div>
                 </div>
-            
+
                 <!-- 导航栏 -->
                 <div id="navigation">
                     <!-- Navigation Menu-->

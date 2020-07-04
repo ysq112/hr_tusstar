@@ -241,7 +241,7 @@ app.use('/users', function (request, response) {
     else if (request.body.code == "1005") {//前端传送名字
         if (request.session.username == undefined || request.session.username == "") {
             response.end("nouser")
-            console.log("no")
+            console.log("用户没有登录")
             return
         }
         else {

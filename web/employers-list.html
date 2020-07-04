@@ -78,8 +78,8 @@
                         <img src="images/logo-dark.png" alt="" class="logo-dark" height="18" />
                     </a>
                 </div>
-                <div class="buy-button">
-                    <a href="post-a-job.html" class="btn btn-primary"><i class="mdi mdi-cloud-upload"></i>发布一个工作</a>
+                <div class="buy-button" v-if = "showtype!=''">
+                    <a :href="turntype" class="btn btn-primary"><i class="mdi mdi-cloud-upload"></i>{{showtype}}</a>
                 </div>
                 <!--end login button-->
                 <!-- End Logo container-->
@@ -125,7 +125,6 @@
                                 <li><a href="companysignup.html">企业注册</a></li>
                                 <li><a href="recovery_passward.html">忘记密码</a></li>
                             </ul>
-                        </li>
                         </li>
                         <li>
                             <a href="contact.html">联系我们</a>
@@ -441,7 +440,7 @@
             <div class="row justify-content-center">
                 <div class="col-12">
                     <div class="">
-                        <p class="mb-0">© 2019 启迪之星(青海). Design </i> by <a href="https://www.qhu.edu.cn/">青海大学</a>.</p>
+                        <p class="mb-0">© 2019 启迪之星(青海). Design by <a href="https://www.qhu.edu.cn/">青海大学</a>.</p>
                     </div>
                 </div>
             </div>
@@ -476,7 +475,11 @@
             data: {
                 infos: [],
                 name: "",
-                newlin: ""
+                newlin: "",
+                showtype: "",
+                turntype: "",
+                isadmin: "",
+                phone: ""
             },
             mounted() {
                 var self = this
@@ -494,6 +497,7 @@
                     code: "1005",
                 })
                     .then(function (response) {
+                        console.log(response)
                         if (response.data == "nouser") {
                             self.name = "未登录"
                         }
@@ -503,11 +507,17 @@
                             self.phone = response.data.phone
                             if (self.isadmin == "2") {
                                 self.newlin = "/enterpriseCenter.html?phone=" + "'" + self.phone + "'"
-                                console.log(newlin)
+                                console.log(self.newlin)
+                                self.showtype = "发布一个岗位"
+                                self.turntype = "/post-a-job.html"
+                                console.log("此用户是企业用户")
                             }
                             if (self.isadmin == "0") {
                                 self.newlin = "/userCenter.html?phone=" + "'" + self.phone + "'"
-                                console.log(newlin)
+                                console.log(self.newlin)
+                                self.showtype = "完善简历"
+                                self.turntype = "/create-resume.html"
+                                console.log("此用户是普通用户")
                             }
                         }
                     })
@@ -516,8 +526,6 @@
                     });
             }
         })
-
     </script>
 </body>
-
 </html>

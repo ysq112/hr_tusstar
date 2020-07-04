@@ -56,7 +56,7 @@
 
         <!-- Navigation Bar-->
         <header id="topnav" class="defaultscroll scroll-active">
-            <!-- Tagline STart -->
+            <!-- 顶部栏 -->
             <div class="tagline">
                 <div class="container">
                     <div class="float-left">
@@ -65,21 +65,27 @@
                         </div>
                     </div>
                     <div class="float-right">
+
                         <ul class="topbar-list list-unstyled d-flex" style="margin: 11px 0px;">
-                            <li class="list-inline-item"><a :href="iflogin"><i
-                                        class="mdi mdi-account mr-2"></i>{{name}}</a></li>
-                            <li class="list-inline-item"><a :href=  "newlin" ><i
-                                        class="mdi mdi-account-box mr-2" ></i>个人中心</a></li>
+                            <li class="list-inline-item">
+                                <a :href="iflogin"><i class="mdi mdi-account mr-2"></i>{{name}}</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a :href="newlin"><i class="mdi mdi-account-box mr-2" ></i>个人中心</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="javascript:void(0)" v-on:click="logOut()"><i class="mdi mdi-account-box mr-2" ></i>注销</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="clearfix"></div>
                 </div>
             </div>
-            <!-- Tagline End -->
+            <!-- 顶部栏结束 -->
 
-            <!-- Menu Start -->
+            <!-- 主页导航栏区域 -->
             <div class="container">
-                <!-- Logo container-->
+                <!-- logo图标 -->
                 <div>
                     <a href="index.html" class="logo">
                         <img src="images/logo-light.png" alt="" class="logo-light" height="18" />
@@ -89,8 +95,8 @@
                 <div class="buy-button" v-if = "showtype!=''">
                     <a :href="turntype" class="btn btn-primary"><i class="mdi mdi-cloud-upload"></i>{{showtype}}</a>
                 </div>
-                <!--end login button-->
-                <!-- End Logo container-->
+                <!-- logo图标结束 -->
+
                 <div class="menu-extras">
                     <div class="menu-item">
                         <!-- Mobile menu toggle-->
@@ -104,45 +110,75 @@
                         <!-- End mobile menu toggle-->
                     </div>
                 </div>
-
+            
+                <!-- 导航栏 -->
                 <div id="navigation">
                     <!-- Navigation Menu-->
                     <ul class="navigation-menu">
                         <li><a href="index.html">主页</a></li>
                         <li><a href="job-list.html">岗位列表</a></li>
                         <li class="has-submenu">
-                            <a href="javascript:void(0)">功能</a><span class="menu-arrow"></span>
+                            <a href="javascript:void(0)">求职者相关</a><span class="menu-arrow"></span>
                             <ul class="submenu">
-                                <li><a href="about.html">关于我们</a></li>
-                                <li><a href="faq.html">常见问题</a></li>
-                                <li class="has-submenu"><a href="javascript:void(0)">应聘者</a><span
+
+
+
+                                <li><a href="signup.html">用户注册</a></li>
+                                <li><a href="login.html">用户登录</a></li>
+                                <!-- <li class="has-submenu"><a href="javascript:void(0)">应聘者</a><span
                                         class="submenu-arrow"></span>
                                     <ul class="submenu">
                                         <li><a href="candidates-listing.html">应聘者列表</a></li>
                                         <li><a href="create-resume.html">新建简历</a></li>
                                     </ul>
-                                </li>
-                                <li><a href="employers-list.html">企业列表</a></li>
+
+
+                                </li> -->
+                                <li><a href="create-resume.html">新建简历</a></li>
                             </ul>
                         </li>
                         <li class="has-submenu">
-                            <a href="javascript:void(0)">用户中心</a><span class="menu-arrow"></span>
+
+                            <a href="javascript:void(0)">企业相关</a><span class="menu-arrow"></span>
                             <ul class="submenu">
-                                <li><a href="login.html">登录</a></li>
-                                <li><a href="signup.html">用户注册</a></li>
-                                <li><a href="companysignup.html">企业注册</a></li>
-                                <li><a href="recovery_passward.html">忘记密码</a></li>
+
+
+
+
+                                <li><a href="login.html">企业注册</a></li>
+                                <li><a href="signup.html">企业登录</a></li>
+                                <li><a href="companysignup.html">发布职位</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="contact.html">联系我们</a>
+
+                        <li class="has-submenu">
+                            <a href="javascript:void(0)">关于系统</a><span class="menu-arrow"></span>
+                            <ul class="submenu">
+                                <li><a href="login.html">常见问题</a></li>
+                                <li><a href="signup.html">意见反馈</a></li>
+                                <li><a href="companysignup.html">发布职位</a></li>
+                            </ul>
                         </li>
+
+                        <li class="has-submenu">
+                            <a href="javascript:void(0)">关于我们</a><span class="menu-arrow"></span>
+                            <ul class="submenu">
+                                <li><a href="login.html">实习基地</a></li>
+                                <li><a href="signup.html">启迪之星</a></li>
+                                <li><a href="contact.html">联系我们</a></li>
+                            </ul>
+                        </li>
+                        <!-- <li>
+                            <a href="contact.html">联系我们</a>
+
+                        </li> -->
                     </ul>
                     <!--end navigation menu-->
                 </div>
-                <!--end navigation-->
+                <!--导航栏结束-->
+
             </div>
-            <!--end container-->
+            <!--主页导航栏区域结束-->
             <!--end end-->
         </header>
         <!--end header-->
@@ -948,6 +984,21 @@
                         console.log("累计申请数目："+self.applicationnum)
                     })
             },
+            methods: {
+              // 注销功能
+              logOut: function () {
+                axios
+                  .put("/logOut",{
+                    a: 1
+                  })
+                  .then(function (response){
+                    location.reload()
+                  })
+                  .catch(function (error) {
+                    console.log(error.message)
+                  })
+              }
+            }
         })
     </script>
 </body>

@@ -825,7 +825,7 @@ app.use('/logOut',function (request, response) {
   request.session.phone = ''
   request.session.username = ''
   request.session.studentisadmin = 0
-  // response.end("注销成功!")
+  response.end("注销成功!")
 })
 
 app.listen(Config.Port, Config.Hostname, function () {

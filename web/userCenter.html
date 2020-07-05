@@ -219,15 +219,12 @@
                             <div class="row">
                                 <div class="col-md-10">
                                     <div class="job-detail-content">
-                                        <img src="images/featured-job/img-4.png" alt=""
-                                            class="img-fluid float-left mr-md-3 mr-2 mx-auto d-block">
+                                        <img src="images/featured-job/img-4.png" alt="" class="img-fluid float-left mr-md-3 mr-2 mx-auto d-block">
                                         <div class="job-detail-com-desc overflow-hidden d-block">
                                             <h4 class="mb-2"><a href="#" class="text-dark">{{item.companyname}}</a></h4>
-                                            <p class="text-muted mb-0"><i
-                                                    class="mdi mdi-link-variant mr-2"></i>{{item.company}}
+                                            <p class="text-muted mb-0"><i class="mdi mdi-link-variant mr-2"></i>{{item.company}}
                                             </p>
-                                            <p class="text-muted mb-0"><i
-                                                    class="mdi mdi-map-marker mr-2"></i>{{item.place}}
+                                            <p class="text-muted mb-0"><i class="mdi mdi-map-marker mr-2"></i>{{item.place}}
                                             </p>
                                         </div>
                                     </div>
@@ -242,8 +239,7 @@
                     <div class="col-lg-4 col-md-4">
                         <div class="candidates-listing-item">
                             <div class="border rounded p-3 mt-2">
-                                <img src="images/employers/img-1.jpg"
-                                    class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill" alt="">
+                                <img src="images/employers/img-1.jpg" class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill" alt="">
                                 <div class="candidates-list-desc overflow-hidden job-single-meta  pt-2">
                                     <h5 class="mb-2 text-center text-dark">{{stuName}}</h5>
                                     <p class="text-muted mb-0 text-center"><i class="mdi mdi-star"></i>{{stuStatus}}</p>
@@ -263,8 +259,7 @@
                 <div class="row">
                     <div class="col-lg-3 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
                         <a href="javascript:void(0)"><img src="images/logo-light.png" height="20" alt=""></a>
-                        <p class="mt-4">启迪之星自1999年清华科技园孵化器成立起，累计投资100多个初创企业，投资总额超过1亿元 人民币，其中投资项目的地
-                            方基金覆盖东北，华中，东部等地区，重点关注互联网+、TMT、 节能环保、新材料、生物医 药、先进制造、教育培训、 智能+、现代服务、大消费等 领域。</p>
+                        <p class="mt-4">启迪之星自1999年清华科技园孵化器成立起，累计投资100多个初创企业，投资总额超过1亿元 人民币，其中投资项目的地 方基金覆盖东北，华中，东部等地区，重点关注互联网+、TMT、 节能环保、新材料、生物医 药、先进制造、教育培训、 智能+、现代服务、大消费等 领域。</p>
                     </div>
                     <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                         <p class="text-white mb-4 footer-list-title">启迪导航</p>
@@ -334,15 +329,16 @@
                 stuStatus: '',
                 resumeList: [],
                 name: "",
-                newlin: ""
+                newlin: "",
+                showtype: ""
             },
             created() {
                 console.log('Requsting...')
                 var self = this
                 axios.post('/center', {
-                    code: "1001"
-                })
-                    .then(function (response) {
+                        code: "1001"
+                    })
+                    .then(function(response) {
                         self.stuName = response.data[0].name
                         self.stuPhone = response.data[0].phone
                         self.stuEmail = response.data[0].email
@@ -350,17 +346,16 @@
                         self.resumeList = response.data[1]
                         console.log(response.data)
                     })
-                    .catch(function (error) {
+                    .catch(function(error) {
                         console.log(error);
                     });
                 axios.post('/users', {
-                    code: "1005",
-                })
-                    .then(function (response) {
+                        code: "1005",
+                    })
+                    .then(function(response) {
                         if (response.data == "nouser") {
                             self.name = "未登录"
-                        }
-                        else {
+                        } else {
                             self.name = response.data.username
                             self.isadmin = response.data.studentisadmin
                             self.phone = response.data.phone
@@ -374,30 +369,32 @@
                             }
                         }
                     })
-                    .catch(function (error) {
+                    .catch(function(error) {
                         console.log(error);
                     });
             },
             methods: {
-                updateResume: function () {
-                    var self = this
-                    axios.post('/center', {
-                        code: "1002"
-                    })
-                        .then(function (response) {
-                            console.log(response.data)
-                            if (response.data == "EmptyResume") {
-                                alert("请先创建简历");
-                                window.location = "create-resume.html"
-                            } else {
-                                window.location = "update-resume.html"
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                }
-                //href=""
+                updateResume: function() {
+                        var self = this
+                        axios.post('/center', {
+                                code: "1002"
+                            })
+                            .then(function(response) {
+                                console.log(response.data)
+                                if (response.data == "EmptyResume") {
+                                    alert("请先创建简历");
+                                    window.location = "create-resume.html"
+                                } else {
+                                    window.location = "update-resume.html"
+
+                                }
+
+                            })
+                            .catch(function(error) {
+                                console.log(error);
+                            });
+                    }
+                    //href=""
             }
         })
     </script>

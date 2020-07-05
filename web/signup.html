@@ -92,11 +92,10 @@
                                                 <label>电子邮箱<span class="text-danger">*</span></label>
                                                 <b><span style="color:red;font-size: 13px">{{tip.email}}</span></b>
                                                 <input type="email" class="form-control" placeholder="" name="email" required="" v-model='email' v-on:blur="check(email,3)">
-                                                <input type="text" class="form-control phone-Captcha" placeholder="输入验证码" name="Captcha" required="">
+                                                <input type="text" class="form-control phone-Captcha" placeholder="输入验证码" name="Captcha" required="" v-model.lazy="emailValidateCode">
                                                 <div class="but_w_h">
-                                                    <input type="button" class="btn btn-primary btn-sm" id="verCodeBtn" onclick="settime(this);" value="获取验证码">
+                                                    <input type="button" class="btn btn-primary btn-sm" id="verCodeBtn" onclick="sendValidateCode()" value="获取验证码">
                                                 </div>
-
                                             </div>
                                         </div>
 
@@ -127,7 +126,7 @@
                                                 <input type="password" class="form-control" placeholder="" required="" name='repassword' v-model='repassword' v-on:blur="check({password: password, repassword: repassword},5)" minlength="8" maxlength="20">
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-12" style="height: 60px;">
                                             <input type="text" class="form-control phone-Captcha input-val" placeholder="输入验证码" name="Captcha">
                                             <canvas id="canvas" width="100" height="30" style="border: 1px solid rgb(100, 100, 248); margin: 0 0 -10px 0;"></canvas>
                                         </div>
@@ -177,74 +176,86 @@
                 repassword: "",
                 tick: false,
                 imshow: "flash",
+                emailValidateCode: "",
+                rightCode: null,
                 tip: {
-                  phone: null,
-                  username: null,
-                  email: null,
-                  sex: null,
-                  password: null,
-                  repassword: null,
-                  tick: null
+                    phone: null,
+                    username: null,
+                    email: null,
+                    password: null,
+                    repassword: null,
+                    tick: null
                 }
             },
             methods: {
-                check: function (value, mode, params=null) {
-                    switch(mode) {
-                      case 1: this.tip.phone = checkAllNumber(value, params); break;
-                      case 2: this.tip.username = checkChinese(value,params); break;
-                      case 3: this.tip.email = checkEmail(value); break;
-                      case 4: this.tip.password = checkPassword(value,params); break;
-                      case 5: this.tip.repassword = checkPwdConfirm(value); break;
-                      case 6: this.tip.tick = checkTick(value); break;
-                      default:
+                check: function(value, mode, params = null) {
+                    switch (mode) {
+                        case 1:
+                            this.tip.phone = checkAllNumber(value, params);
+                            break;
+                        case 2:
+                            this.tip.username = checkChinese(value, params);
+                            break;
+                        case 3:
+                            this.tip.email = checkEmail(value);
+                            break;
+                        case 4:
+                            this.tip.password = checkPassword(value, params);
+                            break;
+                        case 5:
+                            this.tip.repassword = checkPwdConfirm(value);
+                            break;
+                        case 6:
+                            this.tip.tick = checkTick(value);
+                            break;
+                        default:
                     }
                 },
                 insert: function(response) {
                     // 表单验证
+                    flag = true;
                     for (let i in this.tip) {
-                      if (this.tip[i] !== null) {
-                        flag = false;
-                        break;
-                      }
+                        if (this.tip[i] !== "") {
+                            flag = false;
+                            break;
+                        }
                     }
-                    if (this.tick === false) flag=false;
+                    if (this.tick === false) flag = false;
                     if (flag === true) {
                         // 检查无误,执行下面的逻辑
-                        console.log(this.imshow)
                         this.imshow = Compare_verification_codes()
-                        console.log(this.imshow)
                         if (this.imshow === "flash") {
                             alert('图形验证码错误');
+                        } else if (this.emailValidateCode !== self.rightCode) {
+                            alert('邮箱验证码错误');
+                        } else {
+                            axios
+                                .post('/users', {
+                                    code: '1001',
+                                    phone: this.phone,
+                                    username: this.username,
+                                    email: this.email,
+                                    sex: this.sex,
+                                    password: this.password,
+                                    isadmin: 0
+                                })
+                                .then(function(data) {
+                                    if (data.data == "success") {
+                                        alert('注册成功')
+                                        window.location = "/login.html"
+                                    } else if (data.data == "errortypeone") {
+                                        alert('用户已存在')
+                                        window.location.reload()
+                                    } else if (data.data == "error") {
+                                        alert('注册失败')
+                                        window.location.reload()
+                                    }
+                                })
+                                .catch(function(error) {
+                                    console.log('.....', error);
+                                })
                         }
-                        else {
-                          axios
-                            .post('/users', {
-                              code: '1001',
-                              phone: this.phone,
-                              username: this.username,
-                              email: this.email,
-                              sex: this.sex,
-                              password: this.password,
-                              isadmin: 0
-                            })
-                            .then(function(data) {
-                              if (data.data == "success") {
-                                alert('注册成功')
-                                window.location = "/login.html"
-                              } else if (data.data == "errortypeone") {
-                                alert('用户已存在')
-                                window.location.reload()
-                              } else if (data.data == "error") {
-                                alert('注册失败')
-                                window.location.reload()
-                              }
-                            })
-                            .catch(function(error) {
-                              console.log('.....', error);
-                            })
-                        }
-                    }
-                    else {
+                    } else {
                         alert("表单验证有误,请检查所有表单是否都符合要求!")
                     }
                 }

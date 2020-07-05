@@ -212,8 +212,13 @@
 
                     <div class="col-12 mt-3">
                         <div class="custom-form p-4 border rounded">
-                            <img src="images/employers/img-1.jpg"
-                                class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill" alt="">
+                            <img id="img" src="images/employers/img-1.jpg" class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill" alt="">
+                            <div class="shangchuan">   
+                                <a href="javascript:;" class="file">选择照片<input type="file" name="img" required></a>
+                            </div>
+                            <div class="shangchuan">   
+                                <button type="button" class="file" onclick="return preserve()">保存</button>
+                            </div>
                             <form>
                                 <div class="row mt-4">
                                     <div class="col-md-4">

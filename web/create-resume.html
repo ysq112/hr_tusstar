@@ -212,13 +212,18 @@
 
                     <div class="col-12 mt-3">
                         <div class="custom-form p-4 border rounded">
-                            <img id="img" src="images/employers/img-1.jpg" class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill">
-                            <div class="shangchuan">
-                                <a href="javascript:;" class="file">选择照片<input type="file" name="img" required></a>
-                            </div>
-                            <div class="shangchuan">
-                                <button type="button" class="file" onclick="return preserve()">保存</button>
-                            </div>
+                            <form action="/upload" method="post" enctype="multipart/form-data">
+                                <img id="img" src="images/employers/img-1.jpg" class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill">
+                                <div class="shangchuan">
+                                    <a href="javascript:;" class="file">选择照片<input type="file" class="custom-file-input" id="inputGroupFile01" name = "image" aria-describedby="inputGroupFileAddon01"></a>
+                                </div>
+                                <div class="shangchuan">
+                                    <input class="file" type="submit" value="上传" v-on:click="shangchuan"/>
+                                </div>
+                            </form>
+<!--                            <iframe name="myiframe" id="myiframe" src="/upphoto.html" frameborder="0"-->
+<!--                                    scrolling="no" width="100%" height="50%">-->
+<!--                            </iframe>-->
                             <form>
                                 <div class="row mt-4">
                                     <div class="col-md-4">
@@ -615,6 +620,15 @@
                             .catch(function (error) {
                                 console.log(error);
                             })
+                    },
+                    shangchuan:function ()
+                    {
+                        axios
+                            .post('/upload', function (response) {
+                                if (response.data == "uploadSuccess"){
+                                    alert("保存成功")
+                                }
+                            })
                     }
                 },
                 mounted() {
@@ -668,26 +682,9 @@
             }
         )
     </script>
-    <script>
-        function preserve()
-        {
-            var formData    = new FormData();
-            var img = $("[name='img']").prop('files')[0];/*获取上传图片的信息*/
-            formData.append("img",img);
-            $.ajax({
-                type : "post",
-                url : "{:URL('')}",/*此处填写上传路径*/
-                processData : false,
-                contentType : false,
-                data : formData,
-                success : function(data) {
-                    console.log("保存成功！");
-                }
-            });
-        }
-    </script>
+
     <script type="text/javascript">
-        var img = document.querySelector('input[name=img]');
+        var img = document.querySelector('input[name=image]');
         imgs = document.querySelector('#img');
         if(img){
             img.addEventListener('change', function() {

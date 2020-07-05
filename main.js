@@ -68,7 +68,35 @@ app.use('/upload', function (request, response) {
                     console.log(err);
                 }
                 else {
-                    response.end("上传成功")
+                    response.send("uploadSuccess")
+                    console.log("上传路径："+des_file)
+                    var imginsert = "insert into img (phone,imgadress) value (?,?)"
+                    var imgParam = [request.files[0].originalname, des_file]
+                    query(imginsert, imgParam, function (err, result) {
+                        if (err) {
+                            console.log(err + "img插入错误");
+                        }
+                    })
+                }
+            })
+        }
+    });
+})
+app.use('/upphoto', function (request, response) {
+    console.log("准备上传照片")
+    console.log(request.files)
+    var des_file = __dirname + path.sep + "upload" + path.sep + request.files[0].originalname;  //要上传的地方
+    fs.readFile(request.files[0].path, function (err, data) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            fs.writeFile(des_file, data, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    alert("上传成功")
                     console.log("上传路径："+des_file)
                     var imginsert = "insert into img (phone,imgadress) value (?,?)"
                     var imgParam = [request.files[0].originalname, des_file]

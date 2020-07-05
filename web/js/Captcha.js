@@ -61,7 +61,8 @@ function Compare_verification_codes() {
     var num = show_num.join("");
     console.log(num)
     if (val == '') {
-        alert('请输入验证码！');
+      alert('请输入验证码！');
+      return "flash";
     } else if (val == num) {
 
         $(".input-val").val('');

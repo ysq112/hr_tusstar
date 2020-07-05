@@ -2630,4 +2630,14 @@ hr {
   color: #004974;
   text-decoration: none;
 }
+.phone-Captcha {
+    margin: 10px 0 0 0;
+    width: 70%;
+    display: inline-block;
+}
+
+.but_w_h {
+    width: 25%;
+    display: inline-block;
+}
 /*# sourceMappingURL=style.css.map */

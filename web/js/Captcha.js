@@ -63,10 +63,12 @@ function Compare_verification_codes() {
     } else if (val == num) {
 
         $(".input-val").val('');
+        draw(show_num);
         return "true";
 
     } else {
         $(".input-val").val('');
+        draw(show_num);
         return "flash";
     }
 }

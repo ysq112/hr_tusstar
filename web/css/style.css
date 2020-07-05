@@ -38,12 +38,9 @@ File: main stylesheet
   background-color: #e43f52 !important;
 }
 
-.bg-info {
-  background-color: #9084e2 !important;
-}
-
 .bg-warning {
-  background-color: #f17425 !important;
+  color: red;
+  margin-right: 5px;
 }
 
 .bg-dark {
@@ -2405,7 +2402,7 @@ a.job-list[data-toggle=collapse].collapsed:before {
 }
 
 /********************
-        PRICING  
+        PRICING
 *********************/
 .pricing-box {
   -webkit-transition: all 0.5s ease;

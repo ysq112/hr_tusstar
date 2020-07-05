@@ -244,10 +244,10 @@
                                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
                                         <div class="card-body p-0">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio5" name="customRadio"
+                                                <input type="radio" id="customRadio25" name="customRadio"
                                                     class="custom-control-input">
                                                 <label class="custom-control-label ml-1 text-muted"
-                                                    for="customRadio5">全部</label>
+                                                    for="customRadio25">全部</label>
                                             </div>
                                             <div class="custom-control custom-radio">
                                                 <input type="radio" id="customRadio1" name="customRadio"
@@ -297,10 +297,10 @@
                                     <div id="collapsetwo" class="collapse show" aria-labelledby="headingtwo">
                                         <div class="card-body p-0">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio7" name="customRadio1"
+                                                <input type="radio" id="customRadio27" name="customRadio1"
                                                     class="custom-control-input">
                                                 <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio7">全部</label>
+                                                    for="customRadio27">全部</label>
                                             </div>
                                             <div class="custom-control custom-radio">
                                                 <input type="radio" id="customRadio7" name="customRadio1"
@@ -364,10 +364,10 @@
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio13" name="customRadio2"
+                                                <input type="radio" id="customRadio24" name="customRadio2"
                                                     class="custom-control-input">
                                                 <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio13">1-2年</label>
+                                                    for="customRadio24">1-2年</label>
                                             </div>
 
                                             <div class="custom-control custom-radio">
@@ -425,10 +425,10 @@
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio19" name="customRadio3"
+                                                <input type="radio" id="customRadio20" name="customRadio3"
                                                     class="custom-control-input">
                                                 <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio19">硕士/博士</label>
+                                                    for="customRadio20">硕士/博士</label>
                                             </div>
                                         </div>
                                     </div>
@@ -617,7 +617,7 @@
                             fenlei: this.fenlei
                         })
                         .then(function (data) {
-                            self.infos = data.data
+                            this.infos = data.data
                         })
                         .catch(function (error) {
                             console.log(error);
@@ -625,7 +625,10 @@
                 },
                 getQueryVariable: function (variable) {
                     var query = window.location.search.substring(1);
+                    console.log(window.location.search) //?mingcheng=%E6%95%99%E5%B8%88%E5%AE%9E%E4%B9%A0&didian=&fenlei=
+                    console.log(query); //mingcheng=%E6%95%99%E5%B8%88%E5%AE%9E%E4%B9%A0&didian=&fenlei=
                     var vars = query.split("&");
+                    console.log(vars);
                     for (var i = 0; i < vars.length; i++) {
                         var pair = vars[i].split("=");
                         if (pair[0] == variable) { return pair[1]; }
@@ -634,12 +637,12 @@
                 }
             },
             mounted() {
-                var mingcheng = decodeURI(this.getQueryVariable("mingcheng"))
+                var mingcheng = decodeURI(this.getQueryVariable("mingcheng"))   //文字在URL中是乱码，用decodeURI将乱码在转为文字
                 var didian = decodeURI(this.getQueryVariable("didian"))
                 var fenlei = decodeURI(this.getQueryVariable("fenlei"))
                 var t = new Object()
-                if (mingcheng) {
-                    if (mingcheng != "") {
+                if (mingcheng) {    //mingcheng如果赋值了就认为是真
+                    if (mingcheng != "") {  //这个判断应该是没有意义，但是我不敢删除
                         t.mingcheng = mingcheng
                         this.mingcheng = mingcheng
                     }

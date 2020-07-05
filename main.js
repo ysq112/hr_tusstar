@@ -590,30 +590,30 @@ app.use('/bussiness', function (request, response) {
             }
         })
     }
-    else if (request.body.code == "1016") {//搜索
+    else if (request.body.code == "1016") {//岗位搜索
         console.log(request.body)
         var selectcompanynum = "select * from job where "
         var mid = ""
         if (request.body.mingcheng != "" && request.body.mingcheng != undefined) {
-            selectcompanynum = selectcompanynum + "companyname = " + "'" + request.body.mingcheng + "'"
+            selectcompanynum = selectcompanynum + "companyname like " + "'%" + request.body.mingcheng + "%'"
             mid = "1"
         }
         if (request.body.didian != "" && request.body.didian != undefined) {
             if (mid == "1") {
-                selectcompanynum = selectcompanynum + " and place = " + "'" + request.body.didian + "'"
+                selectcompanynum = selectcompanynum + " and place like " + "'%" + request.body.didian + "%'"
                 mid = "2"
             }
             else if (mid == "") {
-                selectcompanynum = selectcompanynum + "place = " + "'" + request.body.didian + "'"
+                selectcompanynum = selectcompanynum + "place like " + "'%" + request.body.didian + "%'"
                 mid = "2"
             }
         }
         if (request.body.fenlei != "" && request.body.fenlei != undefined) {
             if (mid != "") {
-                selectcompanynum = selectcompanynum + " and type = " + "'" + request.body.fenlei + "'"
+                selectcompanynum = selectcompanynum + " and type like " + "'%" + request.body.fenlei + "%'"
             }
             else if (mid == "") {
-                selectcompanynum = selectcompanynum + "type = " + "'" + request.body.fenlei + "'"
+                selectcompanynum = selectcompanynum + "type like " + "'%" + request.body.fenlei + "%'"
             }
         }
         console.log(selectcompanynum)
@@ -625,6 +625,40 @@ app.use('/bussiness', function (request, response) {
             else {
                 response.end(JSON.stringify(result))
                 return
+            }
+        })
+    }
+    else if (request.body.code == "1017"){  //企业搜索
+        console.log(request.body);
+        var selectCompany = "select * from companyusers where ";
+        var flag = "";
+        if (request.body.enterpriseKeyWord != "" && request.body.enterpriseKeyWord != undefined){
+            selectCompany = selectCompany + "phone like " + "'%" + request.body.enterpriseKeyWord +"%'";
+            flag = "1";
+        }
+        if (request.body.companyAddress != "" && request.body.companyAddress != undefined){
+            if (flag == "1"){
+                selectCompany = selectCompany + "and place like " + "'%" + request.body.companyAddress + "%'";
+                flag = "2";
+            }else {
+                selectCompany = selectCompany + "place like " + "'%" + request.body.companyAddress + "%'";
+                flag = "2";
+            }
+        }
+        if (request.body.companyType != "" && request.body.companyType != undefined){
+            if (flag == ""){
+                selectCompany = selectCompany + "companynature like " + "'%" + request.body.companyType + "%'";
+            }else {
+                selectCompany = selectCompany + "and companynature like " + "'%" + request.body.companyType + "%'";
+            }
+        }
+        console.log(selectCompany);
+        query(selectCompany, function (err, results) {
+            if (err){
+                response.end("error")
+                console.log("error-" + err.message)
+            }else {
+                response.end(JSON.stringify(results));
             }
         })
     }

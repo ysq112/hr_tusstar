@@ -177,42 +177,36 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-12">
                             <div class="home-registration-form bg-white job-list-grid-reg-form p-4 mb-3">
-                                <form class="registration-form">
+                                <form class="registration-form" method="GET">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-6">
                                             <div class="registration-form-box">
                                                 <i class="fa fa-briefcase"></i>
-                                                <input type="text" id="exampleInputName1"
+                                                <input type="text" id="enterpriseKeyWord" name="enterpriseKeyWord"
                                                     class="form-control rounded registration-input-box"
-                                                    placeholder="企业关键字...">
+                                                    placeholder="企业关键字..." v-model="enterpriseKeyWord">
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-6">
                                             <div class="registration-form-box">
                                                 <i class="fa fa-location-arrow"></i>
-                                                <select id="select-country" class="demo-default">
-                                                    <option value="">企业地址</option>
-                                                    <option value="XJ">西宁市</option>
-                                                    <option value="BJ">北京市</option>
-                                                </select>
+                                                <input type="text" id="companyAddress" name="companyAddress"
+                                                class="form-control rounded registration-input-box" placeholder="企业地址"
+                                                v-model="companyAddress">
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-6">
                                             <div class="registration-form-box">
                                                 <i class="fa fa-list-alt"></i>
-                                                <select id="select-category" class="demo-default">
-                                                    <option value="">企业类型...</option>
-                                                    <option value="4">国企</option>
-                                                    <option value="1">私人企业</option>
-                                                    <option value="3">世界500强</option>
-                                                    <option value="5">事业单位</option>
-                                                </select>
+                                                <input type="text" id="companyType" name="companyType" class="form-control rounded registration-input-box"
+                                                placeholder="企业类型" v-model="companyType">
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-6">
                                             <div class="registration-form-box">
-                                                <input type="submit" id="submit" name="send"
-                                                    class="submitBnt btn btn-primary btn-block" value="查找">
+                                                <input type="submit" id="submit"
+                                                    class="submitBnt btn btn-primary btn-block" value="立即查询"
+                                                v-on:click="query1">
                                             </div>
                                         </div>
                                     </div>
@@ -487,20 +481,60 @@
                 showtype: "",
                 turntype: "",
                 isadmin: "",
-                phone: ""
+                phone: "",
+                enterpriseKeyWord : "",
+                companyAddress : "",
+                companyType : ""
             },
             mounted() {
                 var self = this
-                axios.post('/bussiness', {
-                    code: "1010"
-                })
-                    .then(function (response) {
-                        self.infos = response.data
-                        console.log(response);
+                var enterpriseKeyWord = decodeURI(self.getQueryVariable("enterpriseKeyWord"));
+                var companyAddress = decodeURI(self.getQueryVariable("companyAddress"));
+                var companyType = decodeURI(self.getQueryVariable("companyType"));
+                var tmp = new Object();
+                if (enterpriseKeyWord != ""){
+                    tmp.enterpriseKeyWord = enterpriseKeyWord;
+                    self.enterpriseKeyWord = enterpriseKeyWord;
+                }
+                if (companyAddress != ""){
+                    tmp.companyAddress = companyAddress;
+                    self.companyAddress = companyAddress;
+                }
+                if (companyType != ""){
+                    tmp.companyType = companyType;
+                    self.companyType = companyType;
+                }
+                console.log(tmp);
+                if (tmp.enterpriseKeyWord != undefined || tmp.companyAddress != undefined || tmp.companyType != undefined){
+                    axios
+                        .post('/bussiness', {
+                            code : '1017',
+                            enterpriseKeyWord: tmp.enterpriseKeyWord,
+                            companyAddress: tmp.companyAddress,
+                            companyType: tmp.companyType
+                        })
+                        .then(function (response) {
+                            if (response.data == "error"){
+                                console.log("企业查询返回错误");
+                                return;
+                            }
+                            self.infos = response.data;
+                        })
+                        .catch(function (error) {
+                            console.log("企业查询发生错误"+error);
+                        })
+                }else {
+                    axios.post('/bussiness', {
+                        code: "1010"
                     })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                        .then(function (response) {
+                            self.infos = response.data
+                            console.log(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }
                 axios.post('/users', {
                     code: "1005",
                 })
@@ -532,6 +566,40 @@
                     .catch(function (error) {
                         console.log(error);
                     });
+
+            },
+            methods : {
+                query1 : function () {
+                    axios
+                        .post('/bussiness', {
+                            code : '1017',
+                            enterpriseKeyWord: this.enterpriseKeyWord,
+                            companyAddress: this.companyAddress,
+                            companyType: this.companyType
+                        })
+                        .then(function (response) {
+                            if (response.data == "error"){
+                                console.log("企业查询返回错误");
+                                return;
+                            }
+                            this.infos = response.data;
+                        })
+                        .catch(function (error) {
+                            console.log("企业查询发生错误"+error);
+                        })
+                },
+                getQueryVariable: function (variable) {
+                    var query = window.location.search.substring(1);
+                    console.log(window.location.search) //?mingcheng=%E6%95%99%E5%B8%88%E5%AE%9E%E4%B9%A0&didian=&fenlei=
+                    console.log(query); //mingcheng=%E6%95%99%E5%B8%88%E5%AE%9E%E4%B9%A0&didian=&fenlei=
+                    var vars = query.split("&");
+                    console.log(vars);
+                    for (var i = 0; i < vars.length; i++) {
+                        var pair = vars[i].split("=");
+                        if (pair[0] == variable) { return pair[1]; }
+                    }
+                    return "";
+                }
             }
         })
     </script>

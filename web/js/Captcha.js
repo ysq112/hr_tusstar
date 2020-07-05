@@ -1,49 +1,50 @@
 var counts = 60;
+var timeInterval = null;
+
+function sendValidateCode() {
+    timeInterval = setInterval(function() {
+        settime($("#verCodeBtn")[0]);
+    }, 1000);
+    var userinfo = {
+        "email": $("input[name='email']").val()
+    }
+    $.ajax({
+        url: "/emailValidate",
+        data: {
+            email: userinfo.email
+        },
+        type: "post",
+        success: function(data) {
+            if (data.state == 404 || data.state == 202 || userinfo.email == '') {
+                alert("验证码发送失败")
+                clearInterval(timeInterval)
+                counts = 0;
+            } else {
+                alert("验证码发送成功，请耐心等待")
+                self.rightCode = data;
+            }
+        },
+        error: function() {
+            alert("发送失败");
+            clearInterval(timeInterval)
+            counts = 0;
+        }
+    });
+}
 
 function settime(val) {
     if (counts == 0) {
         val.removeAttribute("disabled");
         val.value = "获取验证码";
         counts = 60;
-        return false;
+        clearInterval(timeInterval)
     } else {
         val.setAttribute("disabled", true);
         val.value = "重新发送（" + counts + "）";
         counts--;
     }
-    setTimeout(function() {
-        settime(val);
-    }, 1000);
 }
-$(function() {
-    //获取验证码
-    $("#verCodeBtn").click(function() {
-        var userinfo = {
-            "email":  $("input[name='email']").val()
-        }
-        console.log(userinfo.email)
-        $.ajax({
-            url: "/emailValidate",
-            data: {email: userinfo.email},
-            type: "post",
-            success: function(data) {
-                if (JSON.parse(data).state == 404 || JSON.parse(data).state == 202 || userinfo.email == '') {
-                    alert("验证码发送失败")
-                    counts = 0
-                } else {
-                    alert("验证码发送成功，请耐心等待")
-                    var code = data;
-                    console.log(code);
-                }
-            },
-            error: function() {
-                alert("发送失败");
-                counts = 0;
-            }
-        });
 
-    });
-})
 
 
 let show_num = []
@@ -61,10 +62,9 @@ function Compare_verification_codes() {
     var num = show_num.join("");
     console.log(num)
     if (val == '') {
-      alert('请输入验证码！');
-      return "flash";
+        draw(show_num);
+        return "flash";
     } else if (val == num) {
-
         $(".input-val").val('');
         draw(show_num);
         return "true";

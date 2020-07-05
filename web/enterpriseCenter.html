@@ -96,33 +96,54 @@
                         <li><a href="index.html">主页</a></li>
                         <li><a href="job-list.html">岗位列表</a></li>
                         <li class="has-submenu">
-                            <a href="javascript:void(0)">功能</a><span class="menu-arrow"></span>
+                            <a href="javascript:void(0)">求职者相关</a><span class="menu-arrow"></span>
                             <ul class="submenu">
-                                <li><a href="about.html">关于我们</a></li>
-                                <li><a href="faq.html">常见问题</a></li>
-                                <li class="has-submenu"><a href="javascript:void(0)">应聘者</a><span
+                                <li><a href="signup.html">用户注册</a></li>
+                                <li><a href="login.html">用户登录</a></li>
+                                <!-- <li class="has-submenu"><a href="javascript:void(0)">应聘者</a><span
                                         class="submenu-arrow"></span>
                                     <ul class="submenu">
                                         <li><a href="candidates-listing.html">应聘者列表</a></li>
                                         <li><a href="create-resume.html">新建简历</a></li>
                                     </ul>
-                                </li>
-                                <li><a href="employers-list.html">企业列表</a></li>
+
+
+                                </li> -->
+                                <li><a href="create-resume.html">新建简历</a></li>
                             </ul>
                         </li>
                         <li class="has-submenu">
-                            <a href="javascript:void(0)">用户中心</a><span class="menu-arrow"></span>
+
+                            <a href="javascript:void(0)">企业相关</a><span class="menu-arrow"></span>
                             <ul class="submenu">
-                                <li><a href="login.html">登录</a></li>
-                                <li><a href="signup.html">用户注册</a></li>
                                 <li><a href="companysignup.html">企业注册</a></li>
-                                <li><a href="recovery_passward.html">忘记密码</a></li>
+                                <li><a href="signup.html">企业登录</a></li>
+                                <li><a href="post-a-job.html">发布职位</a></li>
+                                <li><a href="employers-list.html">企业列表</a></li>
                             </ul>
                         </li>
+
+                        <li class="has-submenu">
+                            <a href="javascript:void(0)">关于系统</a><span class="menu-arrow"></span>
+                            <ul class="submenu">
+                                <li><a href="login.html">常见问题</a></li>
+                                <li><a href="signup.html">意见反馈</a></li>
+                                <li><a href="companysignup.html">发布职位</a></li>
+                            </ul>
                         </li>
-                        <li>
+
+                        <li class="has-submenu">
+                            <a href="javascript:void(0)">关于我们</a><span class="menu-arrow"></span>
+                            <ul class="submenu">
+                                <li><a href="login.html">实习基地</a></li>
+                                <li><a href="signup.html">启迪之星</a></li>
+                                <li><a href="contact.html">联系我们</a></li>
+                            </ul>
+                        </li>
+                        <!-- <li>
                             <a href="contact.html">联系我们</a>
-                        </li>
+
+                        </li> -->
                     </ul>
                     <!--end navigation menu-->
                 </div>
@@ -162,7 +183,13 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-sm-center">
-                            <img src="images/featured-job/img-3.png" alt="" class="img-fluid mx-md-auto d-block">
+                            <img id="img" src="images/featured-job/img-3.png" alt="" class="img-fluid mx-md-auto d-block avatar avatar-medium">
+                            <div class="shangchuan">   
+                                <a href="javascript:;" class="file">选择照片<input type="file" name="img" required></a>
+                            </div>
+                            <div class="shangchuan">   
+                                <button type="button" class="file" onclick="return preserve()">保存</button>
+                            </div>
                             <h4 class="mt-3"><a href="#" class="text-dark">{{info.phone}}</a></h4>
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item mr-3">
@@ -484,7 +511,48 @@
             }
         })
     </script>
-
+    <script>
+        function preserve()
+        {
+            var formData=new FormData();
+            var img = $("[name='img']").prop('files')[0];/*获取上传图片的信息*/
+            formData.append("img",img);
+            $.ajax
+            ({
+                type : "post",
+                url : "",
+                data:formdata,
+                processData:false,
+                contentType:false,
+                success : function(data) 
+                {
+                    alert("保存成功！");
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        var img = document.querySelector('input[name=img]');
+        imgs = document.querySelector('#img');
+        if(img)
+        {
+            img.addEventListener('change', function() 
+            {
+                var file = this.files[0];
+                var reader = new FileReader();
+                // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
+                reader.addEventListener
+                ("load", function() 
+                    {
+                        imgs.src = reader.result;
+                    }, false
+                );
+                // 调用reader.readAsDataURL()方法，把图片转成base64
+                reader.readAsDataURL(file);
+                $("img").eq(1).css("display", "block");
+            }, false);
+        }
+    </script>
 </body>
 
 </html>

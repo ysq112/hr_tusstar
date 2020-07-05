@@ -19,8 +19,8 @@ function checkLength(value, minlength, maxlength = null) {
 }
 
 function checkUserName(value,params) {
-  // 用户名可以包含字母、数字、下划线
-  var re = /^\w*$/
+  // 用户名可以包含中文、字母、数字和下划线
+  var re = /^[\w\u4e00-\u9fa5]*$/
   if (value === '') {
     return '用户名不能为空'
   }

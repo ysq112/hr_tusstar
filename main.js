@@ -82,6 +82,18 @@ app.use('/upload', function (request, response) {
         }
     });
 })
+app.use('/emailValidate', function (request, response) {
+    let email = request.body.email;
+    let code = Math.random().toString().substr(2, 6);
+    let mail = {
+        from: "dongshuai0331@163.com",
+        subject: "激活邮箱账号",
+        to: email,
+        text: code
+    };
+    send(mail);
+    response.send(code);
+})
 app.use('/users', function (request, response) {
     if (request.body.code == '1001') {//用户注册
         console.log("注册人员信息："+request.body);

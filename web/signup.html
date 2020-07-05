@@ -90,7 +90,6 @@
                                                 <div class="but_w_h">
                                                     <input type="button" class="btn btn-primary btn-sm" id="verCodeBtn" onclick="settime(this);" value="获取验证码">
                                                 </div>
-
                                             </div>
                                         </div>
 
@@ -194,9 +193,7 @@
                         alert('两次密码输入不同');
                         return
                     }
-                    console.log(this.imshow)
                     this.imshow = Compare_verification_codes()
-                    console.log(this.imshow)
                     if (this.imshow === "flash") {
                         alert('图形验证码错误');
                         return

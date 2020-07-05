@@ -19,19 +19,21 @@ $(function() {
     //获取验证码
     $("#verCodeBtn").click(function() {
         var userinfo = {
-            "UserPhoneNum": '86//' + $("input[name='phone']").val()
+            "email":  $("input[name='email']").val()
         }
-
+        console.log(userinfo.email)
         $.ajax({
-            url: "https://www.xxxxx.cn/user/sendcode/",
-            data: userinfo,
-            type: "get",
+            url: "/emailValidate",
+            data: {email: userinfo.email},
+            type: "post",
             success: function(data) {
-                if (JSON.parse(data).state === 404 || JSON.parse(data).state === 202 || userinfo.UserPhoneNum === '86//') {
+                if (JSON.parse(data).state == 404 || JSON.parse(data).state == 202 || userinfo.email == '') {
                     alert("验证码发送失败")
                     counts = 0
                 } else {
                     alert("验证码发送成功，请耐心等待")
+                    var code = data;
+                    console.log(code);
                 }
             },
             error: function() {

@@ -62,21 +62,21 @@
                         </div>
                     </div>
                     <div class="float-right">
-                      <ul class="navigation-menu topbar-list list-unstyled d-flex" style="margin: 11px 0px;">
-                        <li class="has-submenu">
-                          <a href="javascript:void(0);" style="font-size: 15px;"><i class="mdi mdi-account mr-2"></i>{{name}}</a><span class="menu-arrow"></span>
-                          <ul class="submenu" v-if="name === '未登录'">
-                            <li><a href="/login.html" style="font-size: 15px;">登录</a></li>
-                            <li><a href="/signup.html" style="font-size: 15px;">注册</a></li>
-                          </ul>
-                          <ul class="submenu" v-else>
-                            <li><a href="javascript:logOut();" style="font-size: 15px;">注销</a></li>
-                          </ul>
-                        </li>
-                        <li class="list-inline-item">
-                          <a :href="newlin" style="font-size: 15px;"><i class="mdi mdi-account-box mr-2" ></i>个人中心</a>
-                        </li>
-                      </ul>
+                        <ul class="navigation-menu topbar-list list-unstyled d-flex" style="margin: 11px 0px;">
+                            <li class="has-submenu">
+                                <a href="javascript:void(0);" style="font-size: 15px;"><i class="mdi mdi-account mr-2"></i>{{name}}</a><span class="menu-arrow"></span>
+                                <ul class="submenu" v-if="name === '未登录'">
+                                    <li><a href="/login.html" style="font-size: 15px;">登录</a></li>
+                                    <li><a href="/signup.html" style="font-size: 15px;">注册</a></li>
+                                </ul>
+                                <ul class="submenu" v-else>
+                                    <li><a href="javascript:logOut();" style="font-size: 15px;">注销</a></li>
+                                </ul>
+                            </li>
+                            <li class="list-inline-item">
+                                <a :href="newlin" style="font-size: 15px;"><i class="mdi mdi-account-box mr-2" ></i>个人中心</a>
+                            </li>
+                        </ul>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -92,7 +92,7 @@
                         <img src="images/logo-dark.png" alt="" class="logo-dark" height="18" />
                     </a>
                 </div>
-                <div class="buy-button" v-if = "showtype!=''">
+                <div class="buy-button" v-if="showtype!=''">
                     <a :href="turntype" class="btn btn-primary"><i class="mdi mdi-cloud-upload"></i>{{showtype}}</a>
                 </div>
                 <!--end login button-->
@@ -208,31 +208,24 @@
                                     <div class="col-lg-3 col-md-6">
                                         <div class="registration-form-box">
                                             <i class="fa fa-briefcase"></i>
-                                            <input type="text" id="mingcheng" name="mingcheng"
-                                                class="form-control rounded registration-input-box" placeholder="工作名称"
-                                                v-model="mingcheng">
+                                            <input type="text" id="mingcheng" name="mingcheng" class="form-control rounded registration-input-box" placeholder="工作名称" v-model="mingcheng">
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <div class="registration-form-box">
                                             <i class="fa fa-location-arrow"></i>
-                                            <input type="text" id="didian" name="didian"
-                                                class="form-control rounded registration-input-box" placeholder="工作地点"
-                                                v-model="didian">
+                                            <input type="text" id="didian" name="didian" class="form-control rounded registration-input-box" placeholder="工作地点" v-model="didian">
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <div class="registration-form-box">
                                             <i class="fa fa-list-alt"></i>
-                                            <input type="text" id="fenlei" name="fenlei"
-                                                class="form-control rounded registration-input-box" placeholder="职位分类"
-                                                v-model="fenlei">
+                                            <input type="text" id="fenlei" name="fenlei" class="form-control rounded registration-input-box" placeholder="职位分类" v-model="fenlei">
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <div class="registration-form-box">
-                                            <input type="submit" id="submit"
-                                                class="submitBnt btn btn-primary btn-block" value="立即查询" v-on:click="chaxun">
+                                            <input type="submit" id="submit" class="submitBnt btn btn-primary btn-block" value="立即查询" v-on:click="chaxun">
                                         </div>
                                     </div>
                                 </div>
@@ -260,8 +253,7 @@
                         <div class="left-sidebar">
                             <div class="accordion" id="accordionExample">
                                 <div class="card rounded mt-4">
-                                    <a data-toggle="collapse" href="#collapseOne" class="job-list" aria-expanded="true"
-                                        aria-controls="collapseOne">
+                                    <a data-toggle="collapse" href="#collapseOne" class="job-list" aria-expanded="true" aria-controls="collapseOne">
                                         <div class="card-header" id="headingOne">
                                             <h6 class="mb-0 text-dark f-18">发布日期</h6>
                                         </div>
@@ -269,52 +261,39 @@
                                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
                                         <div class="card-body p-0">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio25" name="customRadio"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted"
-                                                    for="customRadio25">全部</label>
+                                                <input type="radio" id="customRadio25" name="customRadio" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted" for="customRadio25">全部</label>
                                             </div>
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio1" name="customRadio"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted"
-                                                    for="customRadio1">最近一个小时</label>
+                                                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted" for="customRadio1">最近一个小时</label>
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio2" name="customRadio"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted"
-                                                    for="customRadio2">最近24个小时</label>
+                                                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted" for="customRadio2">最近24个小时</label>
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio3" name="customRadio"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted"
-                                                    for="customRadio3">最近7天</label>
+                                                <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted" for="customRadio3">最近7天</label>
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio4" name="customRadio"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted"
-                                                    for="customRadio4">最近14天</label>
+                                                <input type="radio" id="customRadio4" name="customRadio" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted" for="customRadio4">最近14天</label>
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio5" name="customRadio"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted"
-                                                    for="customRadio5">最近30天</label>
+                                                <input type="radio" id="customRadio5" name="customRadio" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted" for="customRadio5">最近30天</label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- collapse one end -->
                                 <div class="card rounded mt-4">
-                                    <a data-toggle="collapse" href="#collapsetwo" class="job-list" aria-expanded="true"
-                                        aria-controls="collapsetwo">
+                                    <a data-toggle="collapse" href="#collapsetwo" class="job-list" aria-expanded="true" aria-controls="collapsetwo">
                                         <div class="card-header" id="headingtwo">
                                             <h6 class="mb-0 text-dark f-18">职位分类</h6>
                                         </div>
@@ -322,59 +301,44 @@
                                     <div id="collapsetwo" class="collapse show" aria-labelledby="headingtwo">
                                         <div class="card-body p-0">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio27" name="customRadio1"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio27">全部</label>
+                                                <input type="radio" id="customRadio27" name="customRadio1" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted f-15" for="customRadio27">全部</label>
                                             </div>
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio7" name="customRadio1"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio7">数码/设计</label>
+                                                <input type="radio" id="customRadio7" name="customRadio1" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted f-15" for="customRadio7">数码/设计</label>
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio8" name="customRadio1"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio8">会计/统计类</label>
+                                                <input type="radio" id="customRadio8" name="customRadio1" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted f-15" for="customRadio8">会计/统计类</label>
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio9" name="customRadio1"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio9">银行/金融</label>
+                                                <input type="radio" id="customRadio9" name="customRadio1" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted f-15" for="customRadio9">银行/金融</label>
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio10" name="customRadio1"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio10">计算机/软件</label>
+                                                <input type="radio" id="customRadio10" name="customRadio1" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted f-15" for="customRadio10">计算机/软件</label>
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio11" name="customRadio1"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio11">建筑</label>
+                                                <input type="radio" id="customRadio11" name="customRadio1" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted f-15" for="customRadio11">建筑</label>
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio12" name="customRadio1"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio12">销售/市场</label>
+                                                <input type="radio" id="customRadio12" name="customRadio1" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted f-15" for="customRadio12">销售/市场</label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- collapse one end -->
                                 <div class="card rounded mt-4">
-                                    <a data-toggle="collapse" href="#collapsethree" class="job-list"
-                                        aria-expanded="true" aria-controls="collapsethree">
+                                    <a data-toggle="collapse" href="#collapsethree" class="job-list" aria-expanded="true" aria-controls="collapsethree">
                                         <div class="card-header" id="headingthree">
                                             <h6 class="mb-0 text-dark f-18">工作经验</h6>
                                         </div>
@@ -382,46 +346,35 @@
                                     <div id="collapsethree" class="collapse show" aria-labelledby="headingthree">
                                         <div class="card-body p-0">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio13" name="customRadio2"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio13">无要求</label>
+                                                <input type="radio" id="customRadio13" name="customRadio2" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted f-15" for="customRadio13">无要求</label>
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio24" name="customRadio2"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio24">1-2年</label>
+                                                <input type="radio" id="customRadio24" name="customRadio2" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted f-15" for="customRadio24">1-2年</label>
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio14" name="customRadio2"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio14">2-3年</label>
+                                                <input type="radio" id="customRadio14" name="customRadio2" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted f-15" for="customRadio14">2-3年</label>
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio15" name="customRadio2"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio15">3-4年</label>
+                                                <input type="radio" id="customRadio15" name="customRadio2" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted f-15" for="customRadio15">3-4年</label>
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio16" name="customRadio2"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio16">4年以上</label>
+                                                <input type="radio" id="customRadio16" name="customRadio2" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted f-15" for="customRadio16">4年以上</label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- collapse one end -->
                                 <div class="card rounded mt-4">
-                                    <a data-toggle="collapse" href="#collapsefour" class="job-list" aria-expanded="true"
-                                        aria-controls="collapsefour">
+                                    <a data-toggle="collapse" href="#collapsefour" class="job-list" aria-expanded="true" aria-controls="collapsefour">
                                         <div class="card-header" id="headingfour">
                                             <h6 class="mb-0 text-dark f-18">最低学历</h6>
                                         </div>
@@ -429,31 +382,23 @@
                                     <div id="collapsefour" class="collapse show" aria-labelledby="headingfour">
                                         <div class="card-body p-0">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio17" name="customRadio3"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio17">高中以上</label>
+                                                <input type="radio" id="customRadio17" name="customRadio3" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted f-15" for="customRadio17">高中以上</label>
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio18" name="customRadio3"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio18">专科以上</label>
+                                                <input type="radio" id="customRadio18" name="customRadio3" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted f-15" for="customRadio18">专科以上</label>
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio19" name="customRadio3"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio19">本科以上</label>
+                                                <input type="radio" id="customRadio19" name="customRadio3" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted f-15" for="customRadio19">本科以上</label>
                                             </div>
 
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio20" name="customRadio3"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label ml-1 text-muted f-15"
-                                                    for="customRadio20">硕士/博士</label>
+                                                <input type="radio" id="customRadio20" name="customRadio3" class="custom-control-input">
+                                                <label class="custom-control-label ml-1 text-muted f-15" for="customRadio20">硕士/博士</label>
                                             </div>
                                         </div>
                                     </div>
@@ -475,34 +420,28 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-12 mt-4 pt-2"
-                                v-for="info in infos.slice((currentPage-1)*pagesize,currentPage*pagesize)">
-                                <div class="job-list-box border rounded">
+                            <div class="col-lg-12 mt-4 pt-2" v-for="info in infos.slice((currentPage-1)*pagesize,currentPage*pagesize)">
+                                <div class="job-list-box border rounded" @click="Jump(info.companyname)" style="cursor: pointer">
                                     <div class="p-3">
                                         <div class="row align-items-center">
                                             <div class="col-lg-2">
                                                 <div class="company-logo-img">
-                                                    <img src="images/featured-job/img-1.png" alt=""
-                                                        class="img-fluid mx-auto d-block">
+                                                    <img src="images/featured-job/img-1.png" alt="" class="img-fluid mx-auto d-block">
                                                 </div>
                                             </div>
                                             <div class="col-lg-7 col-md-9">
                                                 <div class="job-list-desc">
-                                                    <h6 class="mb-2"><a href="#"
-                                                            class="text-dark">{{info.companyname}}</a>
+                                                    <h6 class="mb-2"><a href="#" class="text-dark">{{info.companyname}}</a>
                                                     </h6>
-                                                    <p class="text-muted mb-0"><i
-                                                            class="mdi mdi-bank mr-2"></i>{{info.company}}</p>
+                                                    <p class="text-muted mb-0"><i class="mdi mdi-bank mr-2"></i>{{info.company}}</p>
                                                     <ul class="list-inline mb-0">
                                                         <li class="list-inline-item mr-3">
-                                                            <p class="text-muted mb-0"><i
-                                                                    class="mdi mdi-map-marker mr-2"></i>{{info.place}}
+                                                            <p class="text-muted mb-0"><i class="mdi mdi-map-marker mr-2"></i>{{info.place}}
                                                             </p>
                                                         </li>
 
                                                         <li class="list-inline-item">
-                                                            <p class="text-muted mb-0"><i
-                                                                    class="mdi mdi-clock-outline mr-2"></i>{{info.time}}</p>
+                                                            <p class="text-muted mb-0"><i class="mdi mdi-clock-outline mr-2"></i>{{info.time}}</p>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -512,8 +451,7 @@
                                                     <span class="badge badge-success">{{info.worktype}}</span>
 
                                                     <div class="mt-3">
-                                                        <a :href="'/job-details.html?name=' + info.companyname"
-                                                            class="btn btn-sm btn-primary">查看详情</a>
+                                                        <a :href="'/job-details.html?name=' + info.companyname" class="btn btn-sm btn-primary">查看详情</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -523,9 +461,7 @@
                             </div>
 
 
-                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                                :current-page="currentPage" :page-sizes="[10,50,100, 200]" :page-size="10"
-                                layout="prev, pager, next, jumper,sizes, total " :total="this.infos.length">
+                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10,50,100, 200]" :page-size="10" layout="prev, pager, next, jumper,sizes, total " :total="this.infos.length">
                             </el-pagination>
                         </div>
                     </div>
@@ -541,8 +477,7 @@
             <div class="row">
                 <div class="col-lg-3 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
                     <a href="javascript:void(0)"><img src="images/logo-light.png" height="20" alt=""></a>
-                    <p class="mt-4">启迪之星自1999年清华科技园孵化器成立起，累计投资100多个初创企业，投资总额超过1亿元 人民币，其中投资项目的地
-                        方基金覆盖东北，华中，东部等地区，重点关注互联网+、TMT、 节能环保、新材料、生物医 药、先进制造、教育培训、 智能+、现代服务、大消费等 领域。</p>
+                    <p class="mt-4">启迪之星自1999年清华科技园孵化器成立起，累计投资100多个初创企业，投资总额超过1亿元 人民币，其中投资项目的地 方基金覆盖东北，华中，东部等地区，重点关注互联网+、TMT、 节能环保、新材料、生物医 药、先进制造、教育培训、 智能+、现代服务、大消费等 领域。</p>
                 </div>
                 <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                     <p class="text-white mb-4 footer-list-title">启迪导航</p>
@@ -620,10 +555,14 @@
                 mingcheng: "",
                 didian: "",
                 fenlei: "",
-                showtype:"",
-                releaseTime : ""
+                showtype: "",
+                releaseTime: ""
             },
             methods: {
+                Jump(companyname) {
+                    var Herf = "/job-details.html?name=" + companyname
+                    window.location.href = Herf
+                },
                 // 初始页currentPage、初始每页数据数pagesize和数据data
                 handleSizeChange(size) {
                     this.pagesize = size; // 每页下拉显示数据
@@ -633,22 +572,21 @@
                     this.currentPage = currentPage; //点击第几页
                     //console.log(this.currentPage);
                 },
-                chaxun: function () {
-                    axios.post('/bussiness',
-                        {
+                chaxun: function() {
+                    axios.post('/bussiness', {
                             code: '1016',
-                            mingcheng:this.mingcheng,
+                            mingcheng: this.mingcheng,
                             didian: this.didian,
                             fenlei: this.fenlei
                         })
-                        .then(function (data) {
+                        .then(function(data) {
                             this.infos = data.data
                         })
-                        .catch(function (error) {
+                        .catch(function(error) {
                             console.log(error);
                         })
                 },
-                getQueryVariable: function (variable) {
+                getQueryVariable: function(variable) {
                     var query = window.location.search.substring(1);
                     console.log(window.location.search) //?mingcheng=%E6%95%99%E5%B8%88%E5%AE%9E%E4%B9%A0&didian=&fenlei=
                     console.log(query); //mingcheng=%E6%95%99%E5%B8%88%E5%AE%9E%E4%B9%A0&didian=&fenlei=
@@ -656,18 +594,20 @@
                     console.log(vars);
                     for (var i = 0; i < vars.length; i++) {
                         var pair = vars[i].split("=");
-                        if (pair[0] == variable) { return pair[1]; }
+                        if (pair[0] == variable) {
+                            return pair[1];
+                        }
                     }
                     return "";
                 }
             },
             mounted() {
-                var mingcheng = decodeURI(this.getQueryVariable("mingcheng"))   //文字在URL中是乱码，用decodeURI将乱码在转为文字
+                var mingcheng = decodeURI(this.getQueryVariable("mingcheng")) //文字在URL中是乱码，用decodeURI将乱码在转为文字
                 var didian = decodeURI(this.getQueryVariable("didian"))
                 var fenlei = decodeURI(this.getQueryVariable("fenlei"))
                 var t = new Object()
-                if (mingcheng) {    //mingcheng如果赋值了就认为是真
-                    if (mingcheng != "") {  //这个判断应该是没有意义，但是我不敢删除
+                if (mingcheng) { //mingcheng如果赋值了就认为是真
+                    if (mingcheng != "") { //这个判断应该是没有意义，但是我不敢删除
                         t.mingcheng = mingcheng
                         this.mingcheng = mingcheng
                     }
@@ -688,38 +628,37 @@
                 console.log(t)
                 if (t.mingcheng != undefined || t.didian != undefined || t.fenlei != undefined) {
                     axios.post('/bussiness', {
-                        code: "1016",
-                        mingcheng: t.mingcheng,
-                        didian: t.didian,
-                        fenlei: t.fenlei
-                    })
-                        .then(function (response) {
+                            code: "1016",
+                            mingcheng: t.mingcheng,
+                            didian: t.didian,
+                            fenlei: t.fenlei
+                        })
+                        .then(function(response) {
                             self.infos = response.data
                             console.log(response);
                         })
-                        .catch(function (error) {
+                        .catch(function(error) {
                             console.log(error);
                         });
                 } else {
                     axios.post('/bussiness', {
-                        code: "1004"
-                    })
-                        .then(function (response) {
-                            self.infos = response.data
-                            console.log("返回job列表的数据："+response.data);
+                            code: "1004"
                         })
-                        .catch(function (error) {
+                        .then(function(response) {
+                            self.infos = response.data
+                            console.log("返回job列表的数据：" + response.data);
+                        })
+                        .catch(function(error) {
                             console.log(error);
                         });
                 }
                 axios.post('/users', {
-                    code: "1005",
-                })
-                    .then(function (response) {
+                        code: "1005",
+                    })
+                    .then(function(response) {
                         if (response.data == "nouser") {
                             self.name = "未登录"
-                        }
-                        else {
+                        } else {
                             self.name = response.data.username
                             self.isadmin = response.data.studentisadmin
                             self.phone = response.data.phone
@@ -737,7 +676,7 @@
                             }
                         }
                     })
-                    .catch(function (error) {
+                    .catch(function(error) {
                         console.log(error);
                     });
             }

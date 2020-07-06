@@ -126,38 +126,47 @@
                             <ul class="submenu">
                                 <li><a href="signup.html">用户注册</a></li>
                                 <li><a href="login.html">用户登录</a></li>
-                                <li><a href="create-resume.html">新建简历</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu">
+                                <!-- <li class="has-submenu"><a href="javascript:void(0)">应聘者</a><span
+                                        class="submenu-arrow"></span>
+                                    <ul class="submenu">
+                                        <li><a href="candidates-listing.html">应聘者列表</a></li>
+                                        <li><a href="create-resume.html">新建简历</a></li>
+                                    </ul>
 
-                            <a href="javascript:void(0)">企业相关</a><span class="menu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="companysignup.html">企业注册</a></li>
-                                <li><a href="signup.html">企业登录</a></li>
-                                <li><a href="post-a-job.html">发布职位</a></li>
-                                <li><a href="employers-list.html">企业列表</a></li>
-                            </ul>
-                        </li>
 
-                        <li class="has-submenu">
-                            <a href="javascript:void(0)">关于系统</a><span class="menu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="login.html">常见问题</a></li>
-                                <li><a href="signup.html">意见反馈</a></li>
-                                <li><a href="companysignup.html">发布职位</a></li>
-                            </ul>
-                        </li>
+                                </li> -->
+                        <li><a href="create-resume.html">新建简历</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
 
-                        <li class="has-submenu">
-                            <a href="javascript:void(0)">关于我们</a><span class="menu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="login.html">实习基地</a></li>
-                                <li><a href="signup.html">启迪之星</a></li>
-                                <li><a href="contact.html">联系我们</a></li>
-                            </ul>
-                        </li>
-                        <!-- <li>
+                    <a href="javascript:void(0)">企业相关</a><span class="menu-arrow"></span>
+                    <ul class="submenu">
+                        <li><a href="companysignup.html">企业注册</a></li>
+                        <li><a href="signup.html">企业登录</a></li>
+                        <li><a href="post-a-job.html">发布职位</a></li>
+                        <li><a href="employers-list.html">企业列表</a></li>
+                    </ul>
+                </li>
+
+                <li class="has-submenu">
+                    <a href="javascript:void(0)">关于系统</a><span class="menu-arrow"></span>
+                    <ul class="submenu">
+                        <li><a href="login.html">常见问题</a></li>
+                        <li><a href="signup.html">意见反馈</a></li>
+                        <li><a href="companysignup.html">发布职位</a></li>
+                    </ul>
+                </li>
+
+                <li class="has-submenu">
+                    <a href="javascript:void(0)">关于我们</a><span class="menu-arrow"></span>
+                    <ul class="submenu">
+                        <li><a href="login.html">实习基地</a></li>
+                        <li><a href="signup.html">启迪之星</a></li>
+                        <li><a href="contact.html">联系我们</a></li>
+                    </ul>
+                </li>
+                <!-- <li>
                     <a href="contact.html">联系我们</a>
 
                 </li> -->
@@ -204,6 +213,7 @@
 
                     <div class="col-12 mt-3">
                         <div class="custom-form p-4 border rounded">
+
                             <form action="/uploadPhoto1" method="post" enctype="multipart/form-data">
                                 <img id="img" v-bind:src="photoAddress" class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill">
                                 <div class="shangchuan">
@@ -310,21 +320,21 @@
                                     </div>
 
 
-                                </div>
-                            </form>
                         </div>
-                    </div>
+                    </form>
                 </div>
+            </div>
+        </div>
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h5 class="text-dark mt-5">教育经历:</h5>
-                    </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h5 class="text-dark mt-5">教育经历:</h5>
+            </div>
 
-                    <div class="col-12 mt-3">
-                        <div class="custom-form p-4 border rounded">
-                            <form>
-                                <div class="row">
+            <div class="col-12 mt-3">
+                <div class="custom-form p-4 border rounded">
+                    <form>
+                        <div class="row">
 
 
                                     <div class="col-md-6">
@@ -353,15 +363,15 @@
                                                     <option value="硕士">硕士</option>
                                                     <option value="博士">博士</option>
                                                 </select>
-                                                    </div>
-                                                </div>
                                             </div>
+                                        </div>
+                                    </div>
 
-                                            <div class="col-md-6">
-                                                <div class="form-group app-label">
-                                                    <label class="text-muted">学制</label>
-                                                    <div class="form-button">
-                                                        <select class="nice-select rounded" v-model="system">
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label">
+                                            <label class="text-muted">学制</label>
+                                            <div class="form-button">
+                                                <select class="nice-select rounded" v-model="system">
                                                     <option value="全日制">全日制</option>
                                                     <option value="成人教育">成人教育</option>
                                                     <option value="非全日制">非全日制</option>
@@ -421,11 +431,11 @@
 
 
 
-                <div class="col-12 mt-4">
+        <div class="col-12 mt-4">
                     <input type="submit" id="submit" name="send" class="submitBnt btn btn-primary" value="保存简历" v-on:click="insert">
-                </div>
             </div>
-        </section>
+            </div>
+    </section>
     </div>
     <!-- CREATE RESUME END -->
 

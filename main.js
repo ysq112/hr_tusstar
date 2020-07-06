@@ -57,103 +57,108 @@ app.use(bodyparser.urlencoded({ extended: true }))  //解析通常的form表单�
 var USERFLAG = "";
 var distinguish_Create_Update = "";
 app.use('/uploadPhoto1', function (request, response) {
-    console.log(request.session);
-    console.log("要上传头像了")
-    console.log(request.files)
-    response.writeHead(200, {"Content-type":"text/html"});
-    var des_file =  __dirname + path.sep +"web" + path.sep + "headportrait" + path.sep + request.files[0].originalname;  //要上传的地方
-    fs.readFile(request.files[0].path, function (err, data) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            fs.writeFile(des_file, data, function (err) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    if (USERFLAG == "havePhoto"){
-                        let selectPhoto = "select imgadress from img where phone = " + "'" + request.session.phone + "'";
-                        query(selectPhoto, function (err, results) {
-                            if (err){
-                                console.log("img查询错误" + err);
-                                return;
-                            }
-                            let url =  __dirname + path.sep +"web" + path.sep + "headportrait" + path.sep;
-                            console.log(url);
-                            console.log(results[0])
-                            let filename = results[0].imgadress.toString().substr(13, request.files[0].originalname.length);
-                            console.log(filename);
-                            deleteFile(url, filename, function () {
-                                let imgDelete = "delete from img where phone = " + "'" + request.session.phone + "'";
-                                query(imgDelete, function (err, results) {
-                                    if (err){
-                                        console.log("img删除错误" + err);
-                                        return;
-                                    }
-                                    console.log("删除了原来的头像");
-                                    console.log("上传路径："+des_file)
-                                    var imginsert = "insert into img (phone,imgadress) value (?,?)"
-                                    des_file = "headportrait" + path.sep + request.files[0].originalname;
-                                    var imgParam = [request.session.phone, des_file]
-                                    query(imginsert, imgParam, function (err, result) {
+    if (request.session.studentisadmin !== "3") {
+        console.log(request.session);
+        console.log("要上传头像了")
+        console.log(request.files)
+        response.writeHead(200, {"Content-type": "text/html"});
+        var des_file = __dirname + path.sep + "web" + path.sep + "headportrait" + path.sep + request.files[0].originalname;  //要上传的地方
+        fs.readFile(request.files[0].path, function (err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                fs.writeFile(des_file, data, function (err) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        if (USERFLAG == "havePhoto") {
+                            let selectPhoto = "select imgadress from img where phone = " + "'" + request.session.phone + "'";
+                            query(selectPhoto, function (err, results) {
+                                if (err) {
+                                    console.log("img查询错误" + err);
+                                    return;
+                                }
+                                let url = __dirname + path.sep + "web" + path.sep + "headportrait" + path.sep;
+                                console.log(url);
+                                console.log(results[0])
+                                let filename = results[0].imgadress.toString().substr(13, request.files[0].originalname.length);
+                                console.log(filename);
+                                deleteFile(url, filename, function () {
+                                    let imgDelete = "delete from img where phone = " + "'" + request.session.phone + "'";
+                                    query(imgDelete, function (err, results) {
                                         if (err) {
-                                            console.log(err + "img插入错误");
+                                            console.log("img删除错误" + err);
                                             return;
                                         }
-                                        console.log("上传了新的头像");
-                                    })
-                                    if (request.session.studentisadmin == "0"){
-                                        if (distinguish_Create_Update == "create-resume"){
-                                            fs.readFile("./web/create-resume.html", function (err, data) {
-                                                response.end(data);
-                                            })
-                                        }else if(distinguish_Create_Update == "update-resume"){
-                                            fs.readFile("./web/update-resume.html", function (err, data) {
+                                        console.log("删除了原来的头像");
+                                        console.log("上传路径：" + des_file)
+                                        var imginsert = "insert into img (phone,imgadress) value (?,?)"
+                                        des_file = "headportrait" + path.sep + request.files[0].originalname;
+                                        var imgParam = [request.session.phone, des_file]
+                                        query(imginsert, imgParam, function (err, result) {
+                                            if (err) {
+                                                console.log(err + "img插入错误");
+                                                return;
+                                            }
+                                            console.log("上传了新的头像");
+                                        })
+                                        if (request.session.studentisadmin == "0") {
+                                            if (distinguish_Create_Update == "create-resume") {
+                                                fs.readFile("./web/create-resume.html", function (err, data) {
+                                                    response.end(data);
+                                                })
+                                            } else if (distinguish_Create_Update == "update-resume") {
+                                                fs.readFile("./web/update-resume.html", function (err, data) {
+                                                    response.end(data);
+                                                })
+                                            }
+                                        } else if (request.session.studentisadmin == "2") {
+                                            fs.readFile("./web/enterpriseCenter.html", function (err, data) {
                                                 response.end(data);
                                             })
                                         }
-                                    }else if (request.session.studentisadmin == "2"){
-                                        fs.readFile("./web/enterpriseCenter.html", function (err, data) {
-                                            response.end(data);
-                                        })
-                                    }
 
+                                    })
                                 })
                             })
-                        })
-                    }else {
-                        console.log("上传路径："+des_file)
-                        var imginsert = "insert into img (phone,imgadress) value (?,?)"
-                        des_file = "headportrait" + path.sep + request.files[0].originalname;
-                        var imgParam = [request.session.phone, des_file]
-                        query(imginsert, imgParam, function (err, result) {
-                            if (err) {
-                                console.log(err + "img插入错误");
-                                return;
-                            }
-                            console.log("上传了新的头像");
-                        })
-                        if (request.session.studentisadmin == "0"){
-                            if (distinguish_Create_Update == "create-resume"){
-                                fs.readFile("./web/create-resume.html", function (err, data) {
-                                    response.end(data);
-                                })
-                            }else if(distinguish_Create_Update == "update-resume"){
-                                fs.readFile("./web/update-resume.html", function (err, data) {
-                                    response.end(data);
-                                })
-                            }
-                        }else if(request.session.studentisadmin == "2"){
-                            fs.readFile("./web/enterpriseCenter.html", function (err, data) {
-                                response.end(data);
+                        } else {
+                            console.log("上传路径：" + des_file)
+                            var imginsert = "insert into img (phone,imgadress) value (?,?)"
+                            des_file = "headportrait" + path.sep + request.files[0].originalname;
+                            var imgParam = [request.session.phone, des_file]
+                            query(imginsert, imgParam, function (err, result) {
+                                if (err) {
+                                    console.log(err + "img插入错误");
+                                    return;
+                                }
+                                console.log("上传了新的头像");
                             })
+                            if (request.session.studentisadmin == "0") {
+                                if (distinguish_Create_Update == "create-resume") {
+                                    fs.readFile("./web/create-resume.html", function (err, data) {
+                                        response.end(data);
+                                    })
+                                } else if (distinguish_Create_Update == "update-resume") {
+                                    fs.readFile("./web/update-resume.html", function (err, data) {
+                                        response.end(data);
+                                    })
+                                }
+                            } else if (request.session.studentisadmin == "2") {
+                                fs.readFile("./web/enterpriseCenter.html", function (err, data) {
+                                    response.end(data);
+                                })
+                            }
                         }
                     }
-                }
-            })
-        }
-    });
+                })
+            }
+        });
+    }else {
+        fs.readFile("./web/index.html", function (err, data) {
+            response.writeHead(200, {"Content-type": "text/html"});
+            response.end(data);
+        })
+    }
 })
 
 app.use('/searchPhoto', function (request, response) {
@@ -965,16 +970,16 @@ app.use('/center', function (request, response) {
 app.use('/', express.static(Config.WebDir))
 
 app.use('/logOut',function (request, response) {
-  // 打印session中保存的信息
-  //console.log(request.session)
-  // 打印前端传来的数据
-  //console.log(request.body)
-  response.setHeader('Content-type','application/json;charset=utf-8')
-  // 重置session
-  request.session.phone = ''
-  request.session.username = ''
-  request.session.studentisadmin = 0
-  response.end("注销成功!")
+    // 打印session中保存的信息
+    //console.log(request.session)
+    // 打印前端传来的数据
+    //console.log(request.body)
+    response.setHeader('Content-type','application/json;charset=utf-8')
+    // 重置session
+    request.session.phone = ''
+    request.session.username = ''
+    request.session.studentisadmin = "3"
+    response.end("注销成功");
 })
 
 app.listen(Config.Port, Config.Hostname, function () {

@@ -28,7 +28,12 @@ function checkUserName(value,params) {
     // 使用正则表达式判断值是否合法
     if (re.test(value)) {
       // 判断长度是否合法
-      return checkLength(value,params.minlength)
+      if (params !== null) {
+        return checkLength(value,params.minlength)
+      }
+      else {
+        return ''
+      }
     }
     else {
       // 不合法
@@ -47,11 +52,34 @@ function checkAllNumber(value,params) {
     // 使用正则表达式判断值是否合法
     if (re.test(value)) {
       // 判断长度是否合法
-      return checkLength(value,params.minlength)
+      if (params !== null) {
+        return checkLength(value,params.minlength)
+      }
+      else {
+        return ''
+      }
     }
     else {
       // 不合法
       return '包含非数字字符'
+    }
+  }
+}
+
+function checkFund(value) {
+  // 要求只能包含数字或.
+  var re = /^[.0-9]*$/
+  if (value === '') {
+    return '长度不能为空'
+  }
+  else {
+    // 使用正则表达式判断值是否合法
+    if (re.test(value)) {
+      return ''
+    }
+    else {
+      // 不合法
+      return '资金格式不合法'
     }
   }
 }
@@ -66,7 +94,12 @@ function checkChinese(value,params) {
     // 使用正则表达式判断值是否合法
     if (re.test(value)) {
       // 判断长度是否合法
-      return checkLength(value,params.minlength)
+      if (params !== null) {
+        return checkLength(value,params.minlength)
+      }
+      else {
+        return ''
+      }
     }
     else {
       // 不合法
@@ -103,7 +136,12 @@ function checkPassword(value,params) {
     // 使用正则表达式判断值是否合法
     if (re.test(value)) {
       // 判断长度是否合法
-      return checkLength(value,params.minlength)
+      if (params !== null) {
+        return checkLength(value,params.minlength)
+      }
+      else {
+        return ''
+      }
     }
     else {
       // 不合法

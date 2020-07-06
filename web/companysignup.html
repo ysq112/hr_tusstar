@@ -21,6 +21,10 @@
 
     <script src="js/app.js"></script>
     <script src="js/Captcha.js"></script>
+
+    <!--表单验证 js-->
+    <script src="js/form-validator.js"></script>
+
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 
@@ -64,159 +68,167 @@
                                     <h4 class="mb-4">企业注册</h4>
                                 </div>
                                 <div class="login-form">
-                                    <div class="row">
-                                        <div class="col-md-12">
+                                    <form action="javascript:toSubmit()" method="post">
+                                        <div class="row">
+                                          <div class="col-md-12">
                                             <div class="form-group position-relative">
-                                                <label>企业名称(企业用户名)<span class="text-danger"> *</span></label>
-                                                <input type="text" class="form-control" placeholder="用于登录的企业用户名" name="phone" required="" v-model='phone'>
+                                              <label>企业名称(企业用户名)<span class="text-danger"> *</span></label>
+                                              <input type="text" class="form-control" placeholder="用于登录的企业用户名" name="phone" required v-model='phone' minlength="1" maxlength="100">
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
+                                          </div>
+                                          <div class="col-md-6">
                                             <div class="form-group position-relative">
-                                                <label>企业简称</label>
-                                                <input type="text" class="form-control" placeholder="大家熟知的名字" name="username" required="" v-model='username'>
+                                              <label>企业简称</label>
+                                              <input required type="text" class="form-control" placeholder="大家熟知的名字" name="username" v-model='username' minlength="1" maxlength="20">
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
+                                          </div>
+                                          <div class="col-md-6">
                                             <div class="form-group app-label mt-2">
-                                                <label>企业类型<span class="text-danger"> *</span></label>
-                                                <div class="form-button">
-                                                    <select class="nice-select rounded" v-model="companytype">
-                                                        <option value="有限责任公司">有限责任公司</option>
-                                                        <option value="股份有限公司">股份有限公司</option>
-                                                    </select>
-                                                </div>
+                                              <label>企业类型<span class="text-danger"> *</span></label>
+                                              <div class="form-button">
+                                                <select required class="nice-select rounded" v-model="companytype">
+                                                  <option value="有限责任公司">有限责任公司</option>
+                                                  <option value="股份有限公司">股份有限公司</option>
+                                                </select>
+                                              </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
+                                          </div>
+                                          <div class="col-md-6">
                                             <div class="form-group app-label mt-2">
-                                                <label>企业规模(人)<span class="text-danger"> *</span></label>
-                                                <div class="form-button">
-                                                    <select class="nice-select rounded" v-model="companysize">
-                                                        <option value="2000以上">2000以上</option>
-                                                        <option value="500-2000">500-2000</option>
-                                                        <option value="200-500">200-500</option>
-                                                        <option value="50-200">50-200</option>
-                                                        <option value="15-50">15-50</option>
-                                                        <option value="1-15">1-15</option>
-                                                    </select>
-                                                </div>
+                                              <label>企业规模(人)<span class="text-danger"> *</span></label>
+                                              <div class="form-button">
+                                                <select required class="nice-select rounded" v-model="companysize">
+                                                  <option value="2000以上">2000以上</option>
+                                                  <option value="500-2000">500-2000</option>
+                                                  <option value="200-500">200-500</option>
+                                                  <option value="50-200">50-200</option>
+                                                  <option value="15-50">15-50</option>
+                                                  <option value="1-15">1-15</option>
+                                                </select>
+                                              </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
+                                          </div>
+                                          <div class="col-md-6">
                                             <div class="form-group position-relative">
-                                                <label>所在地区<span class="text-danger"> *</span></label>
-                                                <input type="text" class="form-control" placeholder="企业所在地区" name="place" required="" v-model='place'>
+                                              <label>所在地区<span class="text-danger"> *</span></label>
+                                              <input type="text" class="form-control" placeholder="企业所在地区" name="place" required v-model='place' minlength="1" maxlength="50">
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
+                                          </div>
+                                          <div class="col-md-6">
                                             <div class="form-group position-relative">
-                                                <label>注册资金(万元) <span class="text-danger"> *</span></label>
-                                                <input type="text" class="form-control" placeholder="注册资金" required="" name="password" v-model='fund'>
+                                              <label>注册资金(万元) <span class="text-danger"> *</span></label>
+                                              <b><span style="color:red;font-size: 13px">{{tip.fund}}</span></b>
+                                              <input type="text" class="form-control" placeholder="注册资金" required name="password" v-model.lazy='fund' @blur="check(fund,1,{minlength: 1, maxlength: 10})" minlength="1" maxlength="10">
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
+                                          </div>
+                                          <div class="col-md-6">
                                             <div class="form-group position-relative">
-                                                <label>所属行业<span class="text-danger"> *</span></label>
-                                                <div class="form-button">
-                                                    <select class="nice-select rounded" v-model="companynature">
-                                                        <option value="互联网/游戏/软件">互联网/游戏/软件</option>
-                                                        <option value="农林牧渔">农林牧渔</option>
-                                                        <option value="教育/培训">教育/培训</option>
-                                                        <option value="房产/家居/物业/建筑">房产/家居/物业/建筑</option>
-                                                        <option value="广告/传媒/公关/展览">广告/传媒/公关/展览</option>
-                                                        <option value="其他">其他</option>
-                                                    </select>
-                                                </div>
+                                              <label>所属行业<span class="text-danger"> *</span></label>
+                                              <div class="form-button">
+                                                <select required class="nice-select rounded" v-model="companynature">
+                                                  <option value="互联网/游戏/软件">互联网/游戏/软件</option>
+                                                  <option value="农林牧渔">农林牧渔</option>
+                                                  <option value="教育/培训">教育/培训</option>
+                                                  <option value="房产/家居/物业/建筑">房产/家居/物业/建筑</option>
+                                                  <option value="广告/传媒/公关/展览">广告/传媒/公关/展览</option>
+                                                  <option value="其他">其他</option>
+                                                </select>
+                                              </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12">
+                                          </div>
+                                          <div class="col-md-12">
                                             <div class="form-group position-relative">
-                                                <label>负责人手机号<span class="text-danger"> *</span> </label>
-                                                <input type="text" class="form-control" placeholder="负责人手机号" required="" name="password" v-model='personphone'>
+                                              <label>负责人手机号<span class="text-danger"> *</span> </label>
+                                              <b><span style="color:red;font-size: 13px">{{tip.personphone}}</span></b>
+                                              <input type="text" class="form-control" placeholder="负责人手机号" name="password" v-model.lazy='personphone' @blur="check(personphone,2,{minlength: 11, maxlength: 11})" minlength="11" maxlength="11">
                                             </div>
-                                        </div>
-                                        <div class="col-md-12">
+                                          </div>
+                                          <div class="col-md-12">
                                             <div class="form-group position-relative">
-                                                <label>企业邮箱 <span class="text-danger"> *</span></label>
-                                                <input type="email" class="form-control" placeholder="企业邮箱" required="" name="email" v-model='email'>
-                                                <input type="text" class="form-control phone-Captcha" placeholder="输入验证码" name="Captcha" required="" v-model.lazy="emailValidateCode">
-                                                <div class="but_w_h">
-                                                    <input type="button" class="btn btn-primary btn-sm" id="verCodeBtn" onclick="sendValidateCode()" value="获取验证码">
-                                                </div>
+                                              <label>企业邮箱 <span class="text-danger"> *</span></label>
+                                              <b><span style="color:red;font-size: 13px">{{tip.email}}</span></b>
+                                              <input type="email" class="form-control" placeholder="企业邮箱" required name="email" v-model.lazy='email' @blur="check(email,3,{minlength: 1, maxlength: 50})" minlength="1" maxlength="50">
+                                              <input type="text" class="form-control phone-Captcha" placeholder="输入验证码" name="Captcha" required v-model.lazy="emailValidateCode">
+                                              <div class="but_w_h">
+                                                <input type="button" class="btn btn-primary btn-sm" id="verCodeBtn" onclick="sendValidateCode()" value="获取验证码">
+                                              </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12">
+                                          </div>
+                                          <div class="col-md-12">
                                             <div class="form-group position-relative">
-                                                <label>企业简介<span class="text-danger"> *</span></label>
-                                                <input class="form-control" placeholder="企业简介" required="" name="password" v-model='simpletro'>
+                                              <label>企业简介<span class="text-danger"> *</span></label>
+                                              <input required class="form-control" placeholder="企业简介" name="password" v-model='simpletro' minlength="5" maxlength="800">
                                             </div>
-                                        </div>
-                                        <div class="col-lg-12">
+                                          </div>
+                                          <div class="col-lg-12">
                                             <div class="form-group app-label">
-                                                <label>企业介绍<span class="text-danger"> *</span></label>
-                                                <textarea id="addition-information-1" rows="4" class="form-control resume" placeholder="" v-model="introduce"></textarea>
+                                              <label>企业介绍<span class="text-danger"> *</span></label>
+                                              <textarea required id="addition-information-1" rows="4" class="form-control resume" placeholder="" v-model="introduce" minlength="10" maxlength="2000"></textarea>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group app-label mt-2">
-                                                <label>是否上市<span class="text-danger"> *</span></label>
-                                                <div class="form-button">
-                                                    <select class="nice-select rounded" v-model="listed">
-                                                        <option value="1">是</option>
-                                                        <option value="2">否</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
+                                          </div>
+                                          <div class="col-md-6">
                                             <div class="form-group app-label">
-                                                <label>总部位置<span class="text-danger"> *</span></label>
-                                                <input class="form-control" placeholder="总部位置" v-model="headquarters">
+                                              <label>是否上市<span class="text-danger"> *</span></label>
+                                              <div class="form-button">
+                                                <select required class="nice-select rounded" v-model="listed">
+                                                  <option value="1">是</option>
+                                                  <option value="2">否</option>
+                                                </select>
+                                              </div>
                                             </div>
-                                        </div>
+                                          </div>
+                                          <div class="col-lg-6">
+                                            <div class="form-group app-label">
+                                              <label>总部位置<span class="text-danger"> *</span></label>
+                                              <input required class="form-control" placeholder="总部位置" v-model="headquarters" minlength="1" maxlength="50">
+                                            </div>
+                                          </div>
 
-                                        <div class="col-lg-12">
+                                          <div class="col-lg-12">
                                             <div class="form-group app-label">
-                                                <label>企业官网(可填无)<span class="text-danger"> *</span></label>
-                                                <input class="form-control" placeholder="企业官网" v-model="website">
+                                              <label>企业官网(可填无)<span class="text-danger"> *</span></label>
+                                              <input required class="form-control" placeholder="企业官网" v-model="website" minlength="1" maxlength="100">
                                             </div>
-                                        </div>
+                                          </div>
 
-                                        <div class="col-md-12">
+                                          <div class="col-md-12">
                                             <div class="form-group position-relative">
-                                                <label>登录密码<span class="text-danger"> *</span></label>
-                                                <input type="password" class="form-control" placeholder="登录密码" required="" name="password" v-model='password'>
+                                              <label>登录密码<span class="text-danger"> *</span></label>
+                                              <b><span style="color:red;font-size: 13px">{{tip.password}}</span></b>
+                                              <input required type="password" class="form-control" placeholder="登录密码" name="password" v-model.lazy='password' minlength="6" maxlength="20" @blur="check(password, 4, {minlength: 6, maxlength: 20})">
                                             </div>
-                                        </div>
-                                        <div class="col-md-12">
+                                          </div>
+                                          <div class="col-md-12">
                                             <div class="form-group position-relative">
-                                                <label>确认您的密码<span class="text-danger"> *</span></label>
-                                                <input type="password" class="form-control" placeholder="确认您的登录密码" required="" name='repassword' v-model='repassword'>
+                                              <label>确认您的密码<span class="text-danger"> *</span></label>
+                                              <b><span style="color:red;font-size: 13px">{{tip.repassword}}</span></b>
+                                              <input required type="password" class="form-control" placeholder="确认您的登录密码" name='repassword' v-model='repassword' minlength="6" maxlength="20" @blur="check({password: password, repassword: repassword},5)">
                                             </div>
-                                        </div>
-                                        <iframe name="myiframe" id="myiframe" src="/upload.html" frameborder="0" scrolling="no" width="100%" height="50%">
-                                        </iframe>
-                                        <div class="col-md-12" style="height: 60px;">
+                                          </div>
+                                          <iframe name="myiframe" id="myiframe" src="/upload.html" frameborder="0" scrolling="no" width="100%" height="50%">
+                                          </iframe>
+                                          <div class="col-md-12" style="height: 60px;">
                                             <input type="text" class="form-control phone-Captcha input-val" placeholder="输入验证码" name="Captcha">
                                             <canvas id="canvas" width="100" height="30" style="border: 1px solid rgb(100, 100, 248); margin: 0 0 -10px 0;"></canvas>
-                                        </div>
-                                        <div class="col-md-12">
+                                          </div>
+                                          <div class="col-md-12">
                                             <div class="form-group">
-                                                <div class="custom-control m-0 custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                                    <label class="custom-control-label" for="customCheck1">我同意 <a
-                                                            href="#" class="text-primary">《启迪之星服务条款》</a></label>
-                                                </div>
+                                              <div class="custom-control m-0 custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck1" v-model.lazy="tick" @blur="check(tick,6)">
+                                                <label class="custom-control-label" for="customCheck1">我同意 <a
+                                                        href="#" class="text-primary">《启迪之星服务条款》</a></label>
+                                                <b><span style="color:red;font-size: 13px">{{tip.tick}}</span></b>
+                                              </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <button class="btn btn-primary w-100" v-on:click='insert'>注册</button>
-                                        </div>
-                                        <div class="mx-auto">
+                                          </div>
+                                          <div class="col-md-12">
+                                            <button class="btn btn-primary w-100">注册</button>
+                                          </div>
+                                          <div class="mx-auto">
                                             <p class="mb-0 mt-3"><small class="text-dark mr-2">我已经有账号?</small> <a href="login.html" class="text-dark font-weight-bold">登录</a></p>
+                                          </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -233,141 +245,127 @@
 
     <!-- javascript -->
     <script>
-        var app = new Vue({
-            el: '#app',
-            data: {
-                phone: '',
-                username: '',
-                companynature: '',
-                companysize: '',
-                place: '',
-                fund: '',
-                companytype: '',
-                personphone: '',
-                email: '',
-                simpletro: '',
-                introduce: '',
-                password: "",
-                repassword: "",
-                listed: "",
-                website: "",
-                headquarters: "",
-                imshow: "flash",
-                emailValidateCode: "",
-                rightCode: null,
-            },
-            methods: {
-                insert: function(response) {
+      function toSubmit() {
+        app.insert();
+      }
 
-                    if (this.phone == '') {
-                        alert('请输入企业名称');
-                        return
+      var app = new Vue({
+        el: '#app',
+        data: {
+          phone: '',
+          username: '',
+          companynature: '',
+          companysize: '',
+          place: '',
+          fund: '',
+          companytype: '',
+          personphone: '',
+          email: '',
+          simpletro: '',
+          introduce: '',
+          password: "",
+          repassword: "",
+          listed: "",
+          website: "",
+          headquarters: "",
+          imshow: "flash",
+          emailValidateCode: "",
+          rightCode: null,
+          tick: false,
+          tip: {
+            fund: null,
+            personphone: null,
+            email: null,
+            password: null,
+            repassword: null,
+            tick: null
+          }
+        },
+        methods: {
+          check: function (value, mode, params = null) {
+            switch (mode) {
+              case 1:
+                this.tip.fund = checkFund(value);
+                break;
+              case 2:
+                this.tip.personphone = checkAllNumber(value, params);
+                break;
+              case 3:
+                this.tip.email = checkEmail(value);
+                break;
+              case 4:
+                this.tip.password = checkPassword(value, params);
+                break;
+              case 5:
+                this.tip.repassword = checkPwdConfirm(value);
+                break;
+              case 6:
+                this.tip.tick = checkTick(value);
+                break;
+              default:
+            }
+          },
+          insert: function (response) {
+            // 表单验证
+            var flag = true;
+            for (let i in this.tip) {
+              if (this.tip[i] !== "") {
+                flag = false;
+                break;
+              }
+            }
+            if (this.tick === false) flag = false;
+            if (flag === true) {
+              // 检查无误,执行下面的逻辑
+              this.imshow = Compare_verification_codes()
+              if (this.imshow === "flash") {
+                alert('图形验证码错误');
+              } else if (this.emailValidateCode !== self.rightCode) {
+                alert('邮箱验证码错误');
+              } else {
+                axios
+                  .post('/bussiness', {
+                    code: '1008',
+                    phone: this.phone,
+                    username: this.username,
+                    companynature: this.companynature,
+                    companysize: this.companysize,
+                    place: this.place,
+                    fund: this.fund,
+                    companytype: this.companytype,
+                    personphone: this.personphone,
+                    email: this.email,
+                    simpletro: this.simpletro,
+                    introduce: this.introduce,
+                    password: this.password,
+                    listed: this.listed,
+                    website: this.website,
+                    headquarters: this.headquarters
+                  })
+                  .then(function (data) {
+                    if (data.data == "success") {
+                      alert('注册成功')
+                      window.location = "/index.html"
+                    } else if (data.data == "errortypeone") {
+                      alert('企业已存在')
+                      window.location.reload()
+                    } else if (data.data == "error") {
+                      alert('注册失败')
+                      window.location.reload()
                     }
-                    if (this.username == '') {
-                        alert('请输入企业简称');
-                        return
-                    }
-                    if (this.companynature == "") {
-                        alert("请选择企业性质");
-                        return
-                    }
-                    if (this.companysize == "") {
-                        alert("请选择企业规模");
-                        return
-                    }
-                    if (this.place == '') {
-                        alert('请输入所在地区（总）');
-                        return
-                    }
-                    if (this.fund == '') {
-                        alert('请输入注册资金');
-                        return
-                    }
-                    if (this.companytype == '') {
-                        alert('请输入企业类型');
-                        return
-                    }
-                    if (this.personphone == '') {
-                        alert('请输入负责人手机号');
-                        return
-                    }
-                    if (this.email == '') {
-                        alert('请输入企业邮箱');
-                        return
-                    }
-                    if (this.simpletro == '') {
-                        alert('请输入企业简介');
-                        return
-                    }
-                    if (this.introduce == '') {
-                        alert('请输入企业介绍');
-                        return
-                    }
-                    if (this.listed == '') {
-                        alert('请输入企业是否上市');
-                        return
-                    }
-                    if (this.headquarters == '') {
-                        alert('请输入总部地址');
-                        return
-                    }
-
-                    if (this.website == '') {
-                        alert('请输入企业官网');
-                        return
-                    }
-                    if (this.password == "") {
-                        alert("请输入密码");
-                        return
-                    }
-                    if (this.password != this.repassword) {
-                        alert('两次密码输入不同');
-                        return
-                    }
-                    this.imshow = Compare_verification_codes()
-                    if (this.imshow === "flash") {
-                        alert('图形验证码错误');
-                    } else if (this.emailValidateCode !== self.rightCode) {
-                        alert('邮箱验证码错误');
-                    } else {
-                        axios.post('/bussiness', {
-                                code: '1008',
-                                phone: this.phone,
-                                username: this.username,
-                                companynature: this.companynature,
-                                companysize: this.companysize,
-                                place: this.place,
-                                fund: this.fund,
-                                companytype: this.companytype,
-                                personphone: this.personphone,
-                                email: this.email,
-                                simpletro: this.simpletro,
-                                introduce: this.introduce,
-                                password: this.password,
-                                listed: this.listed,
-                                website: this.website,
-                                headquarters: this.headquarters
-                            })
-                            .then(function(data) {
-                                if (data.data == "success") {
-                                    alert('注册成功')
-                                    window.location = "/index.html"
-                                } else if (data.data == "errortypeone") {
-                                    alert('企业已存在')
-                                    window.location.reload()
-                                } else if (data.data == "error") {
-                                    alert('注册失败')
-                                    window.location.reload()
-                                }
-                            })
-                            .catch(function(error) {
-                                console.log('.....', error);
-                            })
-                    }
-                }
+                  })
+                  .catch(function (error) {
+                    console.log('.....', error);
+                  })
+              }
+            }
+            else {
+              alert("表单验证有误,请检查所有表单是否都符合要求!")
             }
 
-        })
+          }
+        }
+      })
     </script>
 </body>
 

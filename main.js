@@ -55,6 +55,7 @@ app.use(bodyparser.json())  //解析json数据格式
 app.use(bodyparser.urlencoded({ extended: true }))  //解析通常的form表单提交的数据
 //上传营业执照和头像的地方
 var USERFLAG = "";
+var distinguish_Create_Update = "";
 app.use('/uploadPhoto1', function (request, response) {
     console.log(request.session);
     console.log("要上传头像了")
@@ -103,9 +104,15 @@ app.use('/uploadPhoto1', function (request, response) {
                                         console.log("上传了新的头像");
                                     })
                                     if (request.session.studentisadmin == "0"){
-                                        fs.readFile("./web/create-resume.html", function (err, data) {
-                                            response.end(data);
-                                        })
+                                        if (distinguish_Create_Update == "create-resume"){
+                                            fs.readFile("./web/create-resume.html", function (err, data) {
+                                                response.end(data);
+                                            })
+                                        }else if(distinguish_Create_Update == "update-resume"){
+                                            fs.readFile("./web/update-resume.html", function (err, data) {
+                                                response.end(data);
+                                            })
+                                        }
                                     }else if (request.session.studentisadmin == "2"){
                                         fs.readFile("./web/enterpriseCenter.html", function (err, data) {
                                             response.end(data);
@@ -128,9 +135,15 @@ app.use('/uploadPhoto1', function (request, response) {
                             console.log("上传了新的头像");
                         })
                         if (request.session.studentisadmin == "0"){
-                            fs.readFile("./web/create-resume.html", function (err, data) {
-                                response.end(data);
-                            })
+                            if (distinguish_Create_Update == "create-resume"){
+                                fs.readFile("./web/create-resume.html", function (err, data) {
+                                    response.end(data);
+                                })
+                            }else if(distinguish_Create_Update == "update-resume"){
+                                fs.readFile("./web/update-resume.html", function (err, data) {
+                                    response.end(data);
+                                })
+                            }
                         }else if(request.session.studentisadmin == "2"){
                             fs.readFile("./web/enterpriseCenter.html", function (err, data) {
                                 response.end(data);
@@ -144,6 +157,11 @@ app.use('/uploadPhoto1', function (request, response) {
 })
 
 app.use('/searchPhoto', function (request, response) {
+    if (request.body.flag == "update-resume"){
+        distinguish_Create_Update = "update-resume";
+    }else if (request.body.flag == "create-resume"){
+        distinguish_Create_Update = "create-resume";
+    }
     let phone = request.session.phone;
     let searchPhotoAddress = "select * from img where phone = " + "'" + phone + "'";
     query(searchPhotoAddress, function (error, results) {

@@ -252,7 +252,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group app-label">
                                             <label class="text-muted">出生年月日<span class="text-danger">*</span> :</label>
-                                            <input id="date-of-birth" type="date" class="form-control resume" placeholder="" v-model="birthday">
+                                            <input id="date-of-birth1" type="date" class="form-control resume" placeholder="" v-model="birthday">
                                         </div>
                                     </div>
 
@@ -272,7 +272,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group app-label">
                                             <label class="text-muted">自我介绍<span class="text-danger">*</span> :</label>
-                                            <textarea id="first-name" type="text" name="name"
+                                            <textarea id="first-name2" type="text" name="name"
                                                 class="form-control resume" placeholder=""
                                                 v-model="selfintro"></textarea>
                                         </div>
@@ -296,7 +296,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group app-label">
                                             <label class="text-muted">家庭住址</label>
-                                            <input id="date-of-birth" type="text" class="form-control resume"
+                                            <input id="date-of-birth2" type="text" class="form-control resume"
                                                 placeholder="" v-model="adress">
                                         </div>
                                     </div>
@@ -432,7 +432,6 @@
                         v-on:click="insert">
                 </div>
             </div>
-    </div>
     </section>
     </div>
     <!-- CREATE RESUME END -->
@@ -662,7 +661,7 @@
                         });
                     axios
                         .post('/searchPhoto', {
-
+                            flag : "update-resume"
                         })
                         .then(function(response) {
                             console.log("返回的头像地址：" + response.data[0].imgadress);

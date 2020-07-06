@@ -652,7 +652,7 @@
                     });
                 axios
                     .post('/searchPhoto', {
-
+                        flag : "create-resume"
                     })
                     .then(function(response) {
                         console.log("返回的头像地址：" + response.data[0].imgadress);

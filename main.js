@@ -12,6 +12,7 @@ var multer = require('multer')  //用于处理 multipart/form-data 类型的表�
 var app = express()
 var send = require("./email.js");
 var silly_datetime = require("silly-datetime");
+var deleteFile = require("./deleteFile.js");
 app.use(session({
     secret: "session",
     resave: true,
@@ -45,7 +46,6 @@ var query = function (sql, options, callback) {
         }
     });
 };
-
 app.use(multer({ dest: '/tmp/' }).array('image'));  //在系统盘创建一个tmp文件加，上传的文件是图片类型
 /**
  * 模块会处理application/x-www-form-urlencoded、application/json两种内容格式的请求体。
@@ -53,11 +53,14 @@ app.use(multer({ dest: '/tmp/' }).array('image'));  //在系统盘创建一个tm
  **/
 app.use(bodyparser.json())  //解析json数据格式
 app.use(bodyparser.urlencoded({ extended: true }))  //解析通常的form表单提交的数据
-//上传营业执照的地方
-app.use('/upload', function (request, response) {
-    console.log("要上传营业执照了")
+//上传营业执照和头像的地方
+var USERFLAG = "";
+app.use('/uploadPhoto1', function (request, response) {
+    console.log(request.session);
+    console.log("要上传头像了")
     console.log(request.files)
-    var des_file = __dirname + path.sep + "upload" + path.sep + request.files[0].originalname;  //要上传的地方
+    response.writeHead(200, {"Content-type":"text/html"});
+    var des_file =  __dirname + path.sep +"web" + path.sep + "headportrait" + path.sep + request.files[0].originalname;  //要上传的地方
     fs.readFile(request.files[0].path, function (err, data) {
         if (err) {
             console.log(err);
@@ -68,47 +71,83 @@ app.use('/upload', function (request, response) {
                     console.log(err);
                 }
                 else {
-                    response.send("uploadSuccess")
-                    console.log("上传路径："+des_file)
-                    var imginsert = "insert into img (phone,imgadress) value (?,?)"
-                    var imgParam = [request.files[0].originalname, des_file]
-                    query(imginsert, imgParam, function (err, result) {
-                        if (err) {
-                            console.log(err + "img插入错误");
-                        }
-                    })
+                    if (USERFLAG == "havePhoto"){
+                        let selectPhoto = "select imgadress from img where phone = " + "'" + request.session.phone + "'";
+                        query(selectPhoto, function (err, results) {
+                            if (err){
+                                console.log("img查询错误" + err);
+                                return;
+                            }
+                            let url =  __dirname + path.sep +"web" + path.sep + "headportrait" + path.sep;
+                            console.log(url);
+                            console.log(results[0])
+                            let filename = results[0].imgadress.toString().substr(13, request.files[0].originalname.length);
+                            console.log(filename);
+                            deleteFile(url, filename, function () {
+                                let imgDelete = "delete from img where phone = " + "'" + request.session.phone + "'";
+                                query(imgDelete, function (err, results) {
+                                    if (err){
+                                        console.log("img删除错误" + err);
+                                        return;
+                                    }
+                                    console.log("删除了原来的头像");
+                                    console.log("上传路径："+des_file)
+                                    var imginsert = "insert into img (phone,imgadress) value (?,?)"
+                                    des_file = "headportrait" + path.sep + request.files[0].originalname;
+                                    var imgParam = [request.session.phone, des_file]
+                                    query(imginsert, imgParam, function (err, result) {
+                                        if (err) {
+                                            console.log(err + "img插入错误");
+                                            return;
+                                        }
+                                        console.log("上传了新的头像");
+                                    })
+                                    fs.readFile("./web/create-resume.html", function (err, data) {
+                                        response.end(data);
+                                    })
+                                })
+                            })
+                        })
+                    }else {
+                        console.log("上传路径："+des_file)
+                        var imginsert = "insert into img (phone,imgadress) value (?,?)"
+                        des_file = "headportrait" + path.sep + request.files[0].originalname;
+                        var imgParam = [request.session.phone, des_file]
+                        query(imginsert, imgParam, function (err, result) {
+                            if (err) {
+                                console.log(err + "img插入错误");
+                                return;
+                            }
+                            console.log("上传了新的头像");
+                        })
+                        fs.readFile("./web/create-resume.html", function (err, data) {
+                            response.end(data);
+                        })
+                    }
                 }
             })
         }
     });
 })
-app.use('/upphoto', function (request, response) {
-    console.log("准备上传照片")
-    console.log(request.files)
-    var des_file = __dirname + path.sep + "upload" + path.sep + request.files[0].originalname;  //要上传的地方
-    fs.readFile(request.files[0].path, function (err, data) {
-        if (err) {
-            console.log(err);
+app.use('/searchPhoto', function (request, response) {
+    let phone = request.session.phone;
+    let searchPhotoAddress = "select * from img where phone = " + "'" + phone + "'";
+    query(searchPhotoAddress, function (error, results) {
+        if (error){
+            response.end("error");
+            return;
         }
-        else {
-            fs.writeFile(des_file, data, function (err) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    alert("上传成功")
-                    console.log("上传路径："+des_file)
-                    var imginsert = "insert into img (phone,imgadress) value (?,?)"
-                    var imgParam = [request.files[0].originalname, des_file]
-                    query(imginsert, imgParam, function (err, result) {
-                        if (err) {
-                            console.log(err + "img插入错误");
-                        }
-                    })
-                }
-            })
+        if (results.length == 0){
+            response.end("noPhoto");
+            return;
         }
-    });
+        if (results.length != 0){
+            USERFLAG = "havePhoto";
+            console.log(JSON.stringify(results[0].imgadress));
+            response.end(JSON.stringify(results));
+            return;
+        }
+    })
 })
 app.use('/emailValidate', function (request, response) {
     let email = request.body.email;

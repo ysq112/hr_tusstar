@@ -213,9 +213,6 @@
                             <input class="file" type="submit" value="上传"/>
                         </div>
                     </form>
-                    <!--                            <iframe name="myiframe" id="myiframe" src="/upphoto.html" frameborder="0"-->
-                    <!--                                    scrolling="no" width="100%" height="50%">-->
-                    <!--                            </iframe>-->
                     <form>
                         <div class="row mt-4">
                             <div class="col-md-4">
@@ -665,7 +662,7 @@
                         });
                     axios
                         .post('/searchPhoto', {
-
+                            flag : "create-resume"
                         })
                         .then(function (response) {
                             console.log("返回的头像地址："+response.data[0].imgadress);

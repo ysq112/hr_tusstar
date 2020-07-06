@@ -102,9 +102,16 @@ app.use('/uploadPhoto1', function (request, response) {
                                         }
                                         console.log("上传了新的头像");
                                     })
-                                    fs.readFile("./web/create-resume.html", function (err, data) {
-                                        response.end(data);
-                                    })
+                                    if (request.session.studentisadmin == "0"){
+                                        fs.readFile("./web/create-resume.html", function (err, data) {
+                                            response.end(data);
+                                        })
+                                    }else if (request.session.studentisadmin == "2"){
+                                        fs.readFile("./web/enterpriseCenter.html", function (err, data) {
+                                            response.end(data);
+                                        })
+                                    }
+
                                 })
                             })
                         })
@@ -120,9 +127,15 @@ app.use('/uploadPhoto1', function (request, response) {
                             }
                             console.log("上传了新的头像");
                         })
-                        fs.readFile("./web/create-resume.html", function (err, data) {
-                            response.end(data);
-                        })
+                        if (request.session.studentisadmin == "0"){
+                            fs.readFile("./web/create-resume.html", function (err, data) {
+                                response.end(data);
+                            })
+                        }else if(request.session.studentisadmin == "2"){
+                            fs.readFile("./web/enterpriseCenter.html", function (err, data) {
+                                response.end(data);
+                            })
+                        }
                     }
                 }
             })

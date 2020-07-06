@@ -312,15 +312,15 @@
 
                                 <h6 class="text-dark f-17 mt-3 mb-0">分享给朋友:</h6>
                                 <ul class="social-icon list-inline mt-3 mb-0">
-                                    <li class="list-inline-item"><a href="#" class="rounded" ><i
+                                    <li class="list-inline-item"><a v-bind:href="win" class="rounded" ><i
                                                 class="mdi mdi-facebook" onClick='copyUrl()' ></i></a></li>
-                                    <li class="list-inline-item"><a href="#" class="rounded" ><i
+                                    <li class="list-inline-item"><a v-bind:href="win" class="rounded" ><i
                                                 class="mdi mdi-twitter" onClick='copyUrl()'></i></a></li>
-                                    <li class="list-inline-item"><a href="#" class="rounded" ><i
+                                    <li class="list-inline-item"><a v-bind:href="win" class="rounded" ><i
                                                 class="mdi mdi-google-plus" onClick='copyUrl()'></i></a></li>
-                                    <li class="list-inline-item"><a href="#" class="rounded" ><i
+                                    <li class="list-inline-item"><a v-bind:href="win" class="rounded" ><i
                                                 class="mdi mdi-whatsapp" onClick='copyUrl()'></i></a></li>
-                                    <li class="list-inline-item"><a href="#" class="rounded" ><i
+                                    <li class="list-inline-item"><a v-bind:href="win" class="rounded" ><i
                                                 class="mdi mdi-linkedin" onClick='copyUrl()'></i></a></li>
                                 </ul>
                             </div>
@@ -419,10 +419,12 @@
                 el: '#app',
                 data: {
                     info: {},
-                    namer: "",
-                    newlin: ""
+                    name: "",
+                    newlin: "",
+                    win: ""
                 },
                 mounted() { //页面渲染完成后执行这一块
+                    win = window.location.href;
                     const name = this.getUrlKey("name", window.location.href)
                     let self = this;
                     axios.post('/bussiness', {
@@ -448,10 +450,10 @@
                     })
                         .then(function (response) {
                             if (response.data == "nouser") {
-                                self.namer = "未登录"
+                                self.name = "未登录"
                             }
                             else {
-                                self.namer = response.data.username
+                                self.name = response.data.username
                                 self.isadmin = response.data.studentisadmin
                                 self.phone = response.data.phone
                                 if (self.isadmin == "2") {

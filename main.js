@@ -129,6 +129,7 @@ app.use('/uploadPhoto1', function (request, response) {
         }
     });
 })
+
 app.use('/searchPhoto', function (request, response) {
     let phone = request.session.phone;
     let searchPhotoAddress = "select * from img where phone = " + "'" + phone + "'";

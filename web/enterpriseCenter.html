@@ -194,13 +194,17 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-sm-center">
-                            <img id="img" src="images/featured-job/img-3.png" alt="" class="img-fluid mx-md-auto d-block avatar avatar-medium">
-                            <div class="shangchuan">
-                                <a href="javascript:;" class="file">选择照片<input type="file" name="img" required></a>
-                            </div>
-                            <div class="shangchuan">
-                                <button type="button" class="file" onclick="return preserve()">保存</button>
-                            </div>
+
+                            <form action="" method="post" enctype="multipart/form-data">
+                                <img id="img" v-bind:src="photoAddress" class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill">
+                                <div class="shangchuan">
+                                    <a href="javascript:;" class="file">选择照片<input type="file" class="custom-file-input" id="inputGroupFile01" name = "image" aria-describedby="inputGroupFileAddon01"></a>
+                                </div>
+                                <div class="shangchuan">
+                                    <input class="file" type="submit" value="上传" />
+                                </div>
+                            </form>
+
                             <h4 class="mt-3"><a href="#" class="text-dark">{{info.phone}}</a></h4>
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item mr-3">
@@ -442,7 +446,8 @@
                 info: [],
                 infoList: [],
                 name: '',
-                newlin: ''
+                newlin: '',
+                photoAddress:"",
             },
             created() {
                 document.getElementById("btn1").style.color = "black";
@@ -519,45 +524,43 @@
                 resumeInfo: function (item) {
                     window.location = "candidates-profile.html?phone=" + item.phone;
                 }
-            }
+            },
+            mounted()
+            {
+                var self = this
+                axios
+                    .post('/searchPhoto', {
+
+                    })
+                    .then(function(response) {
+                        console.log("返回的头像地址：" + response.data[0].imgadress);
+                        if (response.data == "error") {
+                            console.log("头像查询时出现错误");
+                        } else if (response.data == "noPhoto") {
+                            self.photoAddress = "images/employers/img-3.jpg";
+                        } else {
+                            self.photoAddress = response.data[0].imgadress;
+                        }
+                        console.log(self.photoAddress);
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    })
+            },
         })
     </script>
-    <script>
-        function preserve()
-        {
-            var formData=new FormData();
-            var img = $("[name='img']").prop('files')[0];/*获取上传图片的信息*/
-            formData.append("img",img);
-            $.ajax
-            ({
-                type : "post",
-                url : "",
-                data:formdata,
-                processData:false,
-                contentType:false,
-                success : function(data)
-                {
-                    alert("保存成功！");
-                }
-            });
-        }
-    </script>
+
     <script type="text/javascript">
-        var img = document.querySelector('input[name=img]');
+        var img = document.querySelector('input[name=image]');
         imgs = document.querySelector('#img');
-        if(img)
-        {
-            img.addEventListener('change', function()
-            {
+        if (img) {
+            img.addEventListener('change', function() {
                 var file = this.files[0];
                 var reader = new FileReader();
                 // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
-                reader.addEventListener
-                ("load", function()
-                    {
-                        imgs.src = reader.result;
-                    }, false
-                );
+                reader.addEventListener("load", function() {
+                    imgs.src = reader.result;
+                }, false);
                 // 调用reader.readAsDataURL()方法，把图片转成base64
                 reader.readAsDataURL(file);
                 $("img").eq(1).css("display", "block");

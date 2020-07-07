@@ -528,6 +528,11 @@ button:not(:disabled) {
   height: 140px;
 }
 
+.avatar.avatar-zhizhao {
+  width: 220px;
+  height: 150px;
+}
+
 .faq-container .question {
   font-size: 20px;
 }
@@ -2639,5 +2644,9 @@ hr {
 .but_w_h {
     width: 25%;
     display: inline-block;
+}
+#myiframe
+{
+  height: 250px;
 }
 /*# sourceMappingURL=style.css.map */

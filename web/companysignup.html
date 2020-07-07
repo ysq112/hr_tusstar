@@ -205,8 +205,20 @@
                                               <input required type="password" class="form-control" placeholder="确认您的登录密码" name='repassword' v-model='repassword' minlength="6" maxlength="20" @blur="check({password: password, repassword: repassword},5)">
                                             </div>
                                           </div>
-                                          <iframe name="myiframe" id="myiframe" src="/upload.html" frameborder="0" scrolling="no" width="100%" height="50%">
+
+<!--                                          <form action="/uploadlicense" method="post" enctype="multipart/form-data">-->
+<!--                                            <img id="img" v-bind:src="photoAddress" class="img-fluid avatar avatar-zhizhao d-block mx-auto ">-->
+<!--                                            <div class="shangchuan">-->
+<!--                                                <a href="javascript:;" class="file">选择照片<input type="file" class="custom-file-input" id="inputGroupFile01" name = "image" aria-describedby="inputGroupFileAddon01"></a>-->
+<!--                                            </div>-->
+<!--                                            <div class="shangchuan">-->
+<!--                                                <input class="file" type="submit" value="上传" />-->
+<!--                                            </div>-->
+<!--                                          </form>-->
+
+                                          <iframe name="myiframe" id="myiframe" src="/upload.html" frameborder="0" scrolling="no" width="100%" height="100%">
                                           </iframe>
+
                                           <div class="col-md-12" style="height: 60px;">
                                             <input type="text" class="form-control phone-Captcha input-val" placeholder="输入验证码" name="Captcha">
                                             <canvas id="canvas" width="100" height="30" style="border: 1px solid rgb(100, 100, 248); margin: 0 0 -10px 0;"></canvas>
@@ -222,7 +234,7 @@
                                             </div>
                                           </div>
                                           <div class="col-md-12">
-                                            <button class="btn btn-primary w-100">注册</button>
+                                            <button class="btn btn-primary w-100" type="submit">注册</button>
                                           </div>
                                           <div class="mx-auto">
                                             <p class="mb-0 mt-3"><small class="text-dark mr-2">我已经有账号?</small> <a href="login.html" class="text-dark font-weight-bold">登录</a></p>
@@ -270,6 +282,7 @@
           headquarters: "",
           imshow: "flash",
           emailValidateCode: "",
+          photoAddress: "images/zhizhao.jpg",
           rightCode: null,
           tick: false,
           tip: {
@@ -364,8 +377,88 @@
             }
 
           }
-        }
+        },
+          mounted() {
+              var self = this
+              axios.post('/bussiness', {
+                  code: "1014"
+              })
+                  .then(function(response) {
+                      if (response.data == "errortypenouser") {
+                          alert("用户未登录")
+                          window.location = "login.html"
+                      } else if (response.data == "notcompany") {
+                          alert("登录用户非学生单位")
+                          window.location = "index.html"
+                      }
+                  })
+                  .catch(function(error) {
+                      console.log(error);
+                  });
+              axios.post('/users', {
+                  code: "1005",
+              })
+                  .then(function(response) {
+                      if (response.data == "nouser") {
+                          self.name = "未登录"
+                      } else {
+                          self.name = response.data.username
+                          self.isadmin = response.data.studentisadmin
+                          self.phone = response.data.phone
+                          if (self.isadmin == "2") {
+                              self.newlin = "/enterpriseCenter.html?phone=" + "'" + self.phone + "'"
+                              self.showtype = "发布一个岗位"
+                              self.turntype = "/post-a-job.html"
+                              console.log(self.newlin)
+                          }
+                          if (self.isadmin == "0") {
+                              self.newlin = "/userCenter.html?phone=" + "'" + self.phone + "'"
+                              self.showtype = "完善简历"
+                              self.turntype = "create-resume.html"
+                              console.log(self.newlin)
+                          }
+                      }
+                  })
+                  .catch(function(error) {
+                      console.log(error);
+                  });
+              axios
+                  .post('/searchPhoto', {
+                      flag : "create-resume"
+                  })
+                  .then(function(response) {
+                      console.log("返回的头像地址：" + response.data[0].imgadress);
+                      if (response.data == "error") {
+                          console.log("头像查询时出现错误");
+                      } else if (response.data == "noPhoto") {
+                          self.photoAddress = "images/zhizhao.jpg";
+                      } else {
+                          self.photoAddress = response.data[0].imgadress;
+                      }
+                      console.log(self.photoAddress);
+                  })
+                  .catch(function(error) {
+                      console.log(error);
+                  })
+          },
       })
+    </script>
+    <script type="text/javascript">
+        var img = document.querySelector('input[name=image]');
+        imgs = document.querySelector('#img');
+        if (img) {
+            img.addEventListener('change', function() {
+                var file = this.files[0];
+                var reader = new FileReader();
+                // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
+                reader.addEventListener("load", function() {
+                    imgs.src = reader.result;
+                }, false);
+                // 调用reader.readAsDataURL()方法，把图片转成base64
+                reader.readAsDataURL(file);
+                $("img").eq(1).css("display", "block");
+            }, false);
+        }
     </script>
 </body>
 

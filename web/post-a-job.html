@@ -586,9 +586,15 @@
                             numberOfRecruitment: this.numberOfRecruitment
                         })
                         .then(function(data) {
-                            if (data.data == 'success') {
-                                alert('发布成功');
-                                window.location = "/index.html"
+                            if (data.data == 'success')
+                            {
+                                var fabu=confirm('确定发布吗?');
+                                if (fabu==true)
+                                {
+                                    alert('发布成功');
+                                    window.location = "/index.html"
+                                }
+
                             } else if (data.data == 'error') {
                                 alert('注册失败，请重试')
                             }

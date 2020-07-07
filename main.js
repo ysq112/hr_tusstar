@@ -186,6 +186,36 @@ app.use('/searchPhoto', function (request, response) {
         }
     })
 })
+app.use('/uploadlicense', function (request, response) {
+    response.writeHead(200, {"Content-type": "text/html"});
+    var des_file = __dirname + path.sep + "web" + path.sep + "businesslicense" + path.sep + request.files[0].originalname;
+    fs.readFile(request.files[0].path, function (err, data) {
+        if (err){
+            console.log(err);
+        }else {
+            fs.writeFile(des_file, data, function (err) {
+                if (err){
+                    console.log(err);
+                }else {
+                    let insertLicense = "insert into img (phone, imgadress) value (?,?)";
+                    des_file = "businesslicense" + path.sep + request.files[0].originalname;
+                    let insertParam = [request.session.phone, des_file];
+                    query(insertLicense, insertParam, function (err, result) {
+                        if (err){
+                            console.log(err);
+                            return;
+                        }
+                        console.log("上传了营业执照");
+                        let a = "businesslicense/" + request.files[0].originalname;
+                        console.log(a);
+                        let html = '<img src="'+a+'" style="height: 150px; width: 220px;margin: 8px -0 0 137px;">';
+                        response.end(html);
+                    })
+                }
+            })
+        }
+    })
+})
 app.use('/emailValidate', function (request, response) {
     let email = request.body.email;
     let code = Math.random().toString().substr(2, 6);

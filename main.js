@@ -437,8 +437,8 @@ app.use('/users', function (request, response) {
 app.use('/bussiness', function (request, response) {
     if (request.body.code == '1001') {//发布工作
         var time = silly_datetime.format(new Date(), "YYYY-MM-DD HH:mm:ss");
-        var addjob = "insert into job (companyname,worktype,type,place,company,money,edubackground,workyear,email,phone,detail2,detail3,welfare,contact, time) value (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
-        var addjobParam = [request.body.companyname, request.body.worktype, request.body.type, request.body.place, request.session.phone, request.body.money, request.body.edubackground, request.body.workyear, request.body.email, request.body.phone, request.body.detail2, request.body.detail3, request.body.welfare, request.body.contact, time]
+        var addjob = "insert into job (companyname,worktype,type,place,company,money,edubackground,workyear,email,phone,detail2,detail3,welfare,contact, time, numberofrecruitment) value (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        var addjobParam = [request.body.companyname, request.body.worktype, request.body.type, request.body.place, request.session.phone, request.body.money, request.body.edubackground, request.body.workyear, request.body.email, request.body.phone, request.body.detail2, request.body.detail3, request.body.welfare, request.body.contact, time, request.body.numberOfRecruitment]
         query(addjob, addjobParam, function (err, result) {
             if (err) {
                 response.end("error")
@@ -479,6 +479,7 @@ app.use('/bussiness', function (request, response) {
             }
             else {
                 response.end(JSON.stringify(result))
+                console.log(JSON.stringify(result));
             }
         })
 

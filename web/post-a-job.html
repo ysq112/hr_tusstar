@@ -66,21 +66,21 @@
                         </div>
                     </div>
                     <div class="float-right">
-                      <ul class="navigation-menu topbar-list list-unstyled d-flex" style="margin: 11px 0px;">
-                        <li class="has-submenu">
-                          <a href="javascript:void(0);" style="font-size: 15px;"><i class="mdi mdi-account mr-2"></i>{{name}}</a><span class="menu-arrow"></span>
-                          <ul class="submenu" v-if="name === '未登录'">
-                            <li><a href="/login.html" style="font-size: 15px;">登录</a></li>
-                            <li><a href="/signup.html" style="font-size: 15px;">注册</a></li>
-                          </ul>
-                          <ul class="submenu" v-else>
-                            <li><a href="javascript:logOut();" style="font-size: 15px;">注销</a></li>
-                          </ul>
-                        </li>
-                        <li class="list-inline-item">
-                          <a :href="newlin" style="font-size: 15px;"><i class="mdi mdi-account-box mr-2" ></i>个人中心</a>
-                        </li>
-                      </ul>
+                        <ul class="navigation-menu topbar-list list-unstyled d-flex" style="margin: 11px 0px;">
+                            <li class="has-submenu">
+                                <a href="javascript:void(0);" style="font-size: 15px;"><i class="mdi mdi-account mr-2"></i>{{name}}</a><span class="menu-arrow"></span>
+                                <ul class="submenu" v-if="name === '未登录'">
+                                    <li><a href="/login.html" style="font-size: 15px;">登录</a></li>
+                                    <li><a href="/signup.html" style="font-size: 15px;">注册</a></li>
+                                </ul>
+                                <ul class="submenu" v-else>
+                                    <li><a href="javascript:logOut();" style="font-size: 15px;">注销</a></li>
+                                </ul>
+                            </li>
+                            <li class="list-inline-item">
+                                <a :href="newlin" style="font-size: 15px;"><i class="mdi mdi-account-box mr-2" ></i>个人中心</a>
+                            </li>
+                        </ul>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -215,8 +215,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group app-label mt-2">
                                                 <label class="text-muted">职位名称</label>
-                                                <input id="company-name" type="text" class="form-control resume"
-                                                    placeholder="" v-model="companyname">
+                                                <input id="company-name" type="text" class="form-control resume" placeholder="" v-model="companyname">
                                             </div>
                                         </div>
                                     </div>
@@ -261,16 +260,14 @@
                                             <div class="form-group app-label mt-2">
                                                 <label class="text-muted">工作地点</label>
                                                 <div class="form-button">
-                                                    <input id="city" type="text" class="form-control resume"
-                                                        placeholder="" v-model="place">
+                                                    <input id="city" type="text" class="form-control resume" placeholder="" v-model="place">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group app-label mt-2">
                                                 <label class="text-muted">薪资</label>
-                                                <input id="maximum-salary" type="text" class="form-control resume"
-                                                    placeholder="" v-model="money">
+                                                <input id="maximum-salary" type="text" class="form-control resume" placeholder="" v-model="money">
                                             </div>
                                         </div>
                                     </div>
@@ -311,35 +308,40 @@
                                         <div class="col-md-6">
                                             <div class="form-group app-label mt-2">
                                                 <label class="text-muted">邮箱地址</label>
-                                                <input id="email-address" type="text" class="form-control resume"
-                                                    placeholder="" v-model="email">
+                                                <input id="email-address" type="text" class="form-control resume" placeholder="" v-model="email">
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group app-label mt-2">
                                                 <label class="text-muted">联系电话</label>
-                                                <input id="number" type="text" class="form-control resume"
-                                                    placeholder="" v-model="phone">
+                                                <input id="number" type="text" class="form-control resume" placeholder="" v-model="phone">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group app-label mt-2">
+                                                <label class="text-muted">联系人</label>
+                                                <input id="number" type="text" class="form-control resume" placeholder="" v-model="contact">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group app-label mt-2">
+                                                <label class="text-muted">招聘人数</label>
+                                                <input id="recruitment" type="text" class="form-control resume" placeholder="" v-model="numberOfRecruitment" oninput="value=value.replace(/[^\d]/g,'')">
                                             </div>
                                         </div>
                                     </div>
 
 
-                                    <div class="col-md-12">
-                                        <div class="form-group app-label mt-2">
-                                            <label class="text-muted">联系人</label>
-                                            <input id="number" type="text" class="form-control resume" placeholder=""
-                                                v-model="contact">
-                                        </div>
-                                    </div>
-
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group app-label mt-2">
                                                 <label class="text-muted">岗位福利</label>
-                                                <textarea id="description" rows="6" class="form-control resume"
-                                                    placeholder="" v-model="welfare"></textarea>
+                                                <textarea id="description" rows="6" class="form-control resume" placeholder="" v-model="welfare"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -348,8 +350,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group app-label mt-2">
                                                 <label class="text-muted">岗位描述</label>
-                                                <textarea id="description" rows="6" class="form-control resume"
-                                                    placeholder="" v-model="detail3"></textarea>
+                                                <textarea id="description" rows="6" class="form-control resume" placeholder="" v-model="detail3"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -360,8 +361,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group app-label mt-2">
                                                 <label class="text-muted">工作内容</label>
-                                                <textarea id="description" rows="6" class="form-control resume"
-                                                    placeholder="" v-model="detail2"></textarea>
+                                                <textarea id="description" rows="6" class="form-control resume" placeholder="" v-model="detail2"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -390,8 +390,7 @@
             <div class="row">
                 <div class="col-lg-3 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
                     <a href="javascript:void(0)"><img src="images/logo-light.png" height="20" alt=""></a>
-                    <p class="mt-4">启迪之星自1999年清华科技园孵化器成立起，累计投资100多个初创企业，投资总额超过1亿元 人民币，其中投资项目的地
-                        方基金覆盖东北，华中，东部等地区，重点关注互联网+、TMT、 节能环保、新材料、生物医 药、先进制造、教育培训、 智能+、现代服务、大消费等 领域。</p>
+                    <p class="mt-4">启迪之星自1999年清华科技园孵化器成立起，累计投资100多个初创企业，投资总额超过1亿元 人民币，其中投资项目的地 方基金覆盖东北，华中，东部等地区，重点关注互联网+、TMT、 节能环保、新材料、生物医 药、先进制造、教育培训、 智能+、现代服务、大消费等 领域。</p>
                 </div>
                 <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                     <p class="text-white mb-4 footer-list-title">启迪导航</p>
@@ -450,156 +449,157 @@
 
 
     <script>
-        var app = new Vue(
-            {
-                el: '#app',
-                data: {
-                    companyname: "",
-                    worktype: "",
-                    type: "",
-                    place: "",
-                    company: "",
-                    money: "",
-                    edubackground: "",
-                    workyear: "",
-                    email: "",
-                    phone: "",
-                    detail2: "",
-                    detail3: "",
-                    name: "",
-                    newlin: "",
-                    welfare: "",
-                    contact: ""
-                },
-                mounted() {
-                    self = this
-                    axios.post('/bussiness', {
+        var app = new Vue({
+            el: '#app',
+            data: {
+                companyname: "",
+                worktype: "",
+                type: "",
+                place: "",
+                company: "",
+                money: "",
+                edubackground: "",
+                workyear: "",
+                email: "",
+                phone: "",
+                detail2: "",
+                detail3: "",
+                name: "",
+                newlin: "",
+                welfare: "",
+                contact: "",
+                numberOfRecruitment: "",
+            },
+            mounted() {
+                self = this
+                axios.post('/bussiness', {
                         code: "1007"
                     })
-                        .then(function (response) {
-                            if (response.data == "errortypenouser") {
-                                alert("用户未登录")
-                                window.location = "login.html"
-                            }
-                            else if (response.data == "notcompany") {
-                                alert("登录用户非企业单位")
-                                window.location = "index.html"
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                    axios.post('/users', {
+                    .then(function(response) {
+                        if (response.data == "errortypenouser") {
+                            alert("用户未登录")
+                            window.location = "login.html"
+                        } else if (response.data == "notcompany") {
+                            alert("登录用户非企业单位")
+                            window.location = "index.html"
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+                axios.post('/users', {
                         code: "1005",
                     })
-                        .then(function (response) {
-                            if (response.data == "nouser") {
-                                self.name = "未登录"
+                    .then(function(response) {
+                        if (response.data == "nouser") {
+                            self.name = "未登录"
+                        } else {
+                            self.name = response.data.username
+                            self.isadmin = response.data.studentisadmin
+                            self.phone = response.data.phone
+                            if (self.isadmin == "2") {
+                                self.newlin = "/enterpriseCenter.html?phone=" + "'" + self.phone + "'"
+                                console.log(newlin)
+                                console.log(name)
                             }
-                            else {
-                                self.name = response.data.username
-                                self.isadmin = response.data.studentisadmin
-                                self.phone = response.data.phone
-                                if (self.isadmin == "2") {
-                                    self.newlin = "/enterpriseCenter.html?phone=" + "'" + self.phone + "'"
-                                    console.log(newlin)
-                                    console.log(name)
-                                }
-                                if (self.isadmin == "0") {
-                                    self.newlin = "/userCenter.html?phone=" + "'" + self.phone + "'"
-                                    console.log(newlin)
-                                }
+                            if (self.isadmin == "0") {
+                                self.newlin = "/userCenter.html?phone=" + "'" + self.phone + "'"
+                                console.log(newlin)
+                            }
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+            },
+            methods: {
+                insert: function(response) {
+                    if (this.companyname == '') {
+                        alert('请输入工作名称');
+                        return
+                    }
+                    if (this.worktype == '') {
+                        alert('请输入职位性质');
+                        return
+                    }
+                    if (this.type == "") {
+                        alert("请输入职位类型");
+                        return
+                    }
+                    if (this.place == "") {
+                        alert("请输入工作地点");
+                        return
+                    }
+                    if (this.money == "") {
+                        alert("请输入薪资");
+                        return
+                    }
+                    if (this.edubackground == "") {
+                        alert("请输入要求学历");
+                        return
+                    }
+                    if (this.workyear == "") {
+                        alert("请输入工作经验");
+                        return
+                    }
+                    if (this.email == "") {
+                        alert("请输入邮箱地址");
+                        return
+                    }
+                    if (this.phone == "") {
+                        alert("请输入联系电话");
+                        return
+                    }
+                    if (this.numberOfRecruitment == "") {
+                        alert("请输入招聘人数");
+                        return
+                    }
+                    if (this.welfare == "") {
+                        alert("请输入岗位福利");
+                        return
+                    }
+                    if (this.detail2 == "") {
+                        alert("请输入工作内容");
+                        return
+                    }
+                    if (this.detail3 == "") {
+                        alert("请输入岗位描述");
+                        return
+                    }
+
+                    axios.post('/bussiness', {
+                            code: '1001',
+                            companyname: this.companyname,
+                            worktype: this.worktype,
+                            type: this.type,
+                            place: this.place,
+                            company: this.company,
+                            money: this.money,
+                            edubackground: this.edubackground,
+                            workyear: this.workyear,
+                            email: this.email,
+                            phone: this.phone,
+                            detail2: this.detail2,
+                            detail3: this.detail3,
+                            welfare: this.welfare,
+                            contact: this.contact,
+                            numberOfRecruitment: this.numberOfRecruitment
+                        })
+                        .then(function(data) {
+                            if (data.data == 'success') {
+                                alert('发布成功');
+                                window.location = "/index.html"
+                            } else if (data.data == 'error') {
+                                alert('注册失败，请重试')
                             }
                         })
-                        .catch(function (error) {
+                        .catch(function(error) {
                             console.log(error);
-                        });
-                },
-                methods: {
-                    insert: function (response) {
-                        if (this.companyname == '') {
-                            alert('请输入工作名称');
-                            return
-                        }
-                        if (this.worktype == '') {
-                            alert('请输入职位性质');
-                            return
-                        }
-                        if (this.type == "") {
-                            alert("请输入职位类型");
-                            return
-                        }
-                        if (this.place == "") {
-                            alert("请输入工作地点");
-                            return
-                        }
-                        if (this.money == "") {
-                            alert("请输入薪资");
-                            return
-                        }
-                        if (this.edubackground == "") {
-                            alert("请输入要求学历");
-                            return
-                        }
-                        if (this.workyear == "") {
-                            alert("请输入工作经验");
-                            return
-                        }
-                        if (this.email == "") {
-                            alert("请输入邮箱地址");
-                            return
-                        }
-                        if (this.phone == "") {
-                            alert("请输入联系电话");
-                            return
-                        }
-                        if (this.welfare == "") {
-                            alert("请输入岗位福利");
-                            return
-                        }
-                        if (this.detail2 == "") {
-                            alert("请输入工作内容");
-                            return
-                        }
-                        if (this.detail3 == "") {
-                            alert("请输入岗位描述");
-                            return
-                        }
-                        axios.post('/bussiness',
-                            {
-                                code: '1001',
-                                companyname: this.companyname,
-                                worktype: this.worktype,
-                                type: this.type,
-                                place: this.place,
-                                company: this.company,
-                                money: this.money,
-                                edubackground: this.edubackground,
-                                workyear: this.workyear,
-                                email: this.email,
-                                phone: this.phone,
-                                detail2: this.detail2,
-                                detail3: this.detail3,
-                                welfare: this.welfare,
-                                contact: this.contact
-                            })
-                            .then(function (data) {
-                                if (data.data == 'success') {
-                                    alert('发布成功');
-                                    window.location = "/index.html"
-                                }
-                                else if (data.data == 'error') {
-                                    alert('注册失败，请重试')
-                                }
-                            })
-                            .catch(function (error) {
-                                console.log(error);
-                            })
-                    }
+                        })
                 }
-
             }
-        )
+
+        })
     </script>
 </body>
 

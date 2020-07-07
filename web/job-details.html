@@ -56,21 +56,21 @@
                         </div>
                     </div>
                     <div class="float-right">
-                      <ul class="navigation-menu topbar-list list-unstyled d-flex" style="margin: 11px 0px;">
-                        <li class="has-submenu">
-                          <a href="javascript:void(0);" style="font-size: 15px;"><i class="mdi mdi-account mr-2"></i>{{name}}</a><span class="menu-arrow"></span>
-                          <ul class="submenu" v-if="name === '未登录'">
-                            <li><a href="/login.html" style="font-size: 15px;">登录</a></li>
-                            <li><a href="/signup.html" style="font-size: 15px;">注册</a></li>
-                          </ul>
-                          <ul class="submenu" v-else>
-                            <li><a href="javascript:logOut();" style="font-size: 15px;">注销</a></li>
-                          </ul>
-                        </li>
-                        <li class="list-inline-item">
-                          <a :href="newlin" style="font-size: 15px;"><i class="mdi mdi-account-box mr-2" ></i>个人中心</a>
-                        </li>
-                      </ul>
+                        <ul class="navigation-menu topbar-list list-unstyled d-flex" style="margin: 11px 0px;">
+                            <li class="has-submenu">
+                                <a href="javascript:void(0);" style="font-size: 15px;"><i class="mdi mdi-account mr-2"></i>{{name}}</a><span class="menu-arrow"></span>
+                                <ul class="submenu" v-if="name === '未登录'">
+                                    <li><a href="/login.html" style="font-size: 15px;">登录</a></li>
+                                    <li><a href="/signup.html" style="font-size: 15px;">注册</a></li>
+                                </ul>
+                                <ul class="submenu" v-else>
+                                    <li><a href="javascript:logOut();" style="font-size: 15px;">注销</a></li>
+                                </ul>
+                            </li>
+                            <li class="list-inline-item">
+                                <a :href="newlin" style="font-size: 15px;"><i class="mdi mdi-account-box mr-2" ></i>个人中心</a>
+                            </li>
+                        </ul>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -199,11 +199,11 @@
                     <div class="col-lg-8 col-md-7">
                         <div class="job-detail border rounded p-4">
                             <div class="job-detail-content">
-                                <img src="images/featured-job/img-4.png" alt=""
-                                    class="img-fluid float-left mr-md-3 mr-2 mx-auto d-block">
+                                <img src="images/featured-job/img-4.png" alt="" class="img-fluid float-left mr-md-3 mr-2 mx-auto d-block">
                                 <div class="job-detail-com-desc overflow-hidden d-block">
                                     <h4 class="mb-2"><a href="#" class="text-dark">{{info.companyname}}</a></h4>
                                     <p class="text-muted mb-0"><i class="mdi mdi-map-marker mr-2"></i>{{info.place}}</p>
+
                                 </div>
                             </div>
 
@@ -211,6 +211,7 @@
                                 <p class="text-muted mb-3" id="text_1">{{info.company}}</p>
 
                                 <p class="text-muted mb-0">{{info.worktype}}</p>
+                                <p class="text-muted mb-0">招聘人数:{{info.numberOfRecruitment}}</p>
                             </div>
                         </div>
 
@@ -312,15 +313,15 @@
 
                                 <h6 class="text-dark f-17 mt-3 mb-0">分享给朋友:</h6>
                                 <ul class="social-icon list-inline mt-3 mb-0">
-                                    <li class="list-inline-item"><a v-bind:href="win" class="rounded" ><i
+                                    <li class="list-inline-item"><a v-bind:href="win" class="rounded"><i
                                                 class="mdi mdi-facebook" onClick='copyUrl()' ></i></a></li>
-                                    <li class="list-inline-item"><a v-bind:href="win" class="rounded" ><i
+                                    <li class="list-inline-item"><a v-bind:href="win" class="rounded"><i
                                                 class="mdi mdi-twitter" onClick='copyUrl()'></i></a></li>
-                                    <li class="list-inline-item"><a v-bind:href="win" class="rounded" ><i
+                                    <li class="list-inline-item"><a v-bind:href="win" class="rounded"><i
                                                 class="mdi mdi-google-plus" onClick='copyUrl()'></i></a></li>
-                                    <li class="list-inline-item"><a v-bind:href="win" class="rounded" ><i
+                                    <li class="list-inline-item"><a v-bind:href="win" class="rounded"><i
                                                 class="mdi mdi-whatsapp" onClick='copyUrl()'></i></a></li>
-                                    <li class="list-inline-item"><a v-bind:href="win" class="rounded" ><i
+                                    <li class="list-inline-item"><a v-bind:href="win" class="rounded"><i
                                                 class="mdi mdi-linkedin" onClick='copyUrl()'></i></a></li>
                                 </ul>
                             </div>
@@ -340,8 +341,7 @@
                 <div class="row">
                     <div class="col-lg-3 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
                         <a href="javascript:void(0)"><img src="images/logo-light.png" height="20" alt=""></a>
-                        <p class="mt-4">启迪之星自1999年清华科技园孵化器成立起，累计投资100多个初创企业，投资总额超过1亿元 人民币，其中投资项目的地
-                            方基金覆盖东北，华中，东部等地区，重点关注互联网+、TMT、 节能环保、新材料、生物医 药、先进制造、教育培训、 智能+、现代服务、大消费等 领域。</p>
+                        <p class="mt-4">启迪之星自1999年清华科技园孵化器成立起，累计投资100多个初创企业，投资总额超过1亿元 人民币，其中投资项目的地 方基金覆盖东北，华中，东部等地区，重点关注互联网+、TMT、 节能环保、新材料、生物医 药、先进制造、教育培训、 智能+、现代服务、大消费等 领域。</p>
                     </div>
                     <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                         <p class="text-white mb-4 footer-list-title">启迪导航</p>
@@ -414,159 +414,151 @@
     <script src="js/app.js"></script>
 
     <script>
-        var app = new Vue(
-            {
-                el: '#app',
-                data: {
-                    info: {},
-                    name: "",
-                    newlin: "",
-                    win: ""
-                },
-                mounted() { //页面渲染完成后执行这一块
-                    win = window.location.href;
-                    const name = this.getUrlKey("name", window.location.href)
-                    let self = this;
-                    axios.post('/bussiness', {
+        var app = new Vue({
+            el: '#app',
+            data: {
+                info: {},
+                name: "",
+                newlin: "",
+                win: ""
+            },
+            mounted() { //页面渲染完成后执行这一块
+                win = window.location.href;
+                const name = this.getUrlKey("name", window.location.href)
+                let self = this;
+                axios.post('/bussiness', {
                         code: "1003",
                         name: name,
                     })
-                        .then(function (response) {
-                            if (response.data == "errortypenouser") {
-                                alert("用户未登录")
-                                window.location = "login.html"
-                                return
-                            }
-                            else {
-                                self.info = response.data[0]
-                                console.log(response);
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                    axios.post('/users', {
+                    .then(function(response) {
+                        if (response.data == "errortypenouser") {
+                            alert("用户未登录")
+                            window.location = "login.html"
+                            return
+                        } else {
+                            self.info = response.data[0]
+                            console.log(response);
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+                axios.post('/users', {
                         code: "1005",
                     })
-                        .then(function (response) {
-                            if (response.data == "nouser") {
-                                self.name = "未登录"
+                    .then(function(response) {
+                        if (response.data == "nouser") {
+                            self.name = "未登录"
+                        } else {
+                            self.name = response.data.username
+                            self.isadmin = response.data.studentisadmin
+                            self.phone = response.data.phone
+                            if (self.isadmin == "2") {
+                                self.newlin = "/enterpriseCenter.html?phone=" + "'" + self.phone + "'"
+                                console.log("企业中心：" + self.newlin)
                             }
-                            else {
-                                self.name = response.data.username
-                                self.isadmin = response.data.studentisadmin
-                                self.phone = response.data.phone
-                                if (self.isadmin == "2") {
-                                    self.newlin = "/enterpriseCenter.html?phone=" + "'" + self.phone + "'"
-                                    console.log("企业中心："+self.newlin)
-                                }
-                                if (self.isadmin == "0") {
-                                    self.newlin = "/userCenter.html?phone=" + "'" + self.phone + "'"
-                                    console.log("个人中心："+self.newlin)
-                                }
+                            if (self.isadmin == "0") {
+                                self.newlin = "/userCenter.html?phone=" + "'" + self.phone + "'"
+                                console.log("个人中心：" + self.newlin)
                             }
-                        })
-                        .catch(function (error) {
-                            console.log(error)
-                        });
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log(error)
+                    });
+            },
+            methods: {
+                getUrlKey: function(name, url) {
+                    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(url) || [, ""])[1].replace(/\+/g, '%20')) || null
                 },
-                methods: {
-                    getUrlKey: function (name, url) {
-                        return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(url) || [, ""])[1].replace(/\+/g, '%20')) || null
-                    },
-                    insert: function (response) {
-                        var se = confirm("您确定要申请这个职位吗？")
-                        if (se == true) {
-                            var self = this
-                            axios.post('/users', {
+                insert: function(response) {
+                    var se = confirm("您确定要申请这个职位吗？")
+                    if (se == true) {
+                        var self = this
+                        axios.post('/users', {
                                 code: '1002',
                                 companyname: self.info.companyname,
                                 company: self.info.company
                             })
-                                .then(function (data) {
-                                    if (data.data == "success") {
-                                        alert('申请成功')
-                                        window.location.reload
-                                    }
-                                    else if (data.data == "noresume") {
-                                        alert('您尚未新建简历')
-                                        window.location = "/create-resume.html"
-                                    }
-                                    else if (data.data == "notstudent") {
-                                        alert('您的身份不是学生')
-                                        window.location.reload
-                                    }
-                                    else if (data.data == "noagain") {
-                                        alert('您已经申请过一次，请勿重新申请')
-                                        window.location.reload
-                                    }
-                                    else if (data.data == "error") {
-                                        alert('失败')
-                                        window.location.reload
-                                    }
-                                })
-                                .catch(function (error) {
-                                    console.log('.....', error)
-                                })
-                        }
+                            .then(function(data) {
+                                if (data.data == "success") {
+                                    alert('申请成功')
+                                    window.location.reload
+                                } else if (data.data == "noresume") {
+                                    alert('您尚未新建简历')
+                                    window.location = "/create-resume.html"
+                                } else if (data.data == "notstudent") {
+                                    alert('您的身份不是学生')
+                                    window.location.reload
+                                } else if (data.data == "noagain") {
+                                    alert('您已经申请过一次，请勿重新申请')
+                                    window.location.reload
+                                } else if (data.data == "error") {
+                                    alert('失败')
+                                    window.location.reload
+                                }
+                            })
+                            .catch(function(error) {
+                                console.log('.....', error)
+                            })
                     }
                 }
-            })
+            }
+        })
     </script>
     <script language="javascript">
-        function copyUrl()
-        {
-            var clipBoardContent=this.location.href;
+        function copyUrl() {
+            var clipBoardContent = this.location.href;
             console.log(clipBoardContent);
             CopyToClipboard(clipBoardContent);
             alert("链接复制成功");
         }
-        function CopyToClipboard (input) {
+
+        function CopyToClipboard(input) {
             var textToClipboard = input;
             var success = true;
             if (window.clipboardData) {
-                window.clipboardData.setData ("Text", textToClipboard);
-            }
-            else {
-                var forExecElement = CreateElementForExecCommand (textToClipboard);
-                SelectContent (forExecElement);
+                window.clipboardData.setData("Text", textToClipboard);
+            } else {
+                var forExecElement = CreateElementForExecCommand(textToClipboard);
+                SelectContent(forExecElement);
                 var supported = true;
                 try {
                     if (window.netscape && netscape.security) {
-                        netscape.security.PrivilegeManager.enablePrivilege ("UniversalXPConnect");
+                        netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
                     }
-                    success = document.execCommand ("copy", false, null);
-                }
-                catch (e) {
+                    success = document.execCommand("copy", false, null);
+                } catch (e) {
                     success = false;
                 }
-                document.body.removeChild (forExecElement);
+                document.body.removeChild(forExecElement);
             }
 
             if (!success) {
-                alert ("Your browser doesn't allow clipboard access!");
+                alert("Your browser doesn't allow clipboard access!");
             }
         }
 
-        function CreateElementForExecCommand (textToClipboard) {
-            var forExecElement = document.createElement ("div");
+        function CreateElementForExecCommand(textToClipboard) {
+            var forExecElement = document.createElement("div");
             forExecElement.style.position = "absolute";
             forExecElement.style.left = "-10000px";
             forExecElement.style.top = "-10000px";
             forExecElement.textContent = textToClipboard;
-            document.body.appendChild (forExecElement);
+            document.body.appendChild(forExecElement);
             forExecElement.contentEditable = true;
 
             return forExecElement;
         }
 
-        function SelectContent (element) {
-            var rangeToSelect = document.createRange ();
-            rangeToSelect.selectNodeContents (element);
-            var selection = window.getSelection ();
-            selection.removeAllRanges ();
-            selection.addRange (rangeToSelect);
+        function SelectContent(element) {
+            var rangeToSelect = document.createRange();
+            rangeToSelect.selectNodeContents(element);
+            var selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(rangeToSelect);
         }
     </script>
 </body>
+
 </html>

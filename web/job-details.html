@@ -327,7 +327,11 @@
                             </div>
                         </div>
                         <div class="job-detail border rounded mt-4">
-                            <a href="#" class="btn btn-primary btn-block" v-on:click='insert'>申请这份职位</a>
+                            <button class="btn btn-primary btn-block" v-on:click='insert' v-bind:disabled="keyong">
+<!--                                <a href="#" class="btn btn-primary btn-block" v-on:click='insert' v-bind:disabled="keyong">-->
+                                    {{shenqing}}
+<!--                                </a>-->
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -420,9 +424,12 @@
                 info: {},
                 name: "",
                 newlin: "",
-                win: ""
+                win: "",
+                keyong:false,
+                shenqing:"申请这份职位",
             },
-            mounted() { //页面渲染完成后执行这一块
+            mounted()
+            { //页面渲染完成后执行这一块
                 win = window.location.href;
                 const name = this.getUrlKey("name", window.location.href)
                 let self = this;
@@ -438,6 +445,23 @@
                         } else {
                             self.info = response.data[0]
                             console.log(response.data[0]);
+                            axios
+                                .post('/users', {
+                                    code : '1002',
+                                    companyname: self.info.companyname,
+                                    company: self.info.company
+                                })
+                                .then(function (response) {
+                                    console.log("1002输出："+response.data);
+                                    if (response.data == "noagain")
+                                    {
+                                        self.keyong=true
+                                        self.shenqing="已申请此职位"
+                                        console.log(self.keyong)
+                                        console.log(self.shenqing)
+                                    }
+                                });
+
                         }
                     })
                     .catch(function(error) {
@@ -457,7 +481,8 @@
                                 self.newlin = "/enterpriseCenter.html?phone=" + "'" + self.phone + "'"
                                 console.log("企业中心：" + self.newlin)
                             }
-                            if (self.isadmin == "0") {
+                            if (self.isadmin == "0")
+                            {
                                 self.newlin = "/userCenter.html?phone=" + "'" + self.phone + "'"
                                 console.log("个人中心：" + self.newlin)
                             }
@@ -471,7 +496,8 @@
                 getUrlKey: function(name, url) {
                     return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(url) || [, ""])[1].replace(/\+/g, '%20')) || null
                 },
-                insert: function(response) {
+                insert: function(response)
+                {
                     var se = confirm("您确定要申请这个职位吗？")
                     if (se == true) {
                         var self = this
@@ -490,8 +516,13 @@
                                 } else if (data.data == "notstudent") {
                                     alert('您的身份不是学生')
                                     window.location.reload
-                                } else if (data.data == "noagain") {
+                                } else if (data.data == "noagain")
+                                {
                                     alert('您已经申请过一次，请勿重新申请')
+                                    self.keyong=true
+                                    self.shenqing="已申请此职位"
+                                    console.log(self.keyong)
+                                    console.log(self.shenqing)
                                     window.location.reload
                                 } else if (data.data == "error") {
                                     alert('失败')

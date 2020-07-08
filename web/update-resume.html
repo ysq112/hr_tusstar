@@ -424,11 +424,8 @@
                     </div>
                 </div>
 
-
-
-
                 <div class="col-12 mt-4">
-                    <input type="submit" id="submit" name="send" class="submitBnt btn btn-primary" value="修改简历"
+                    <input type="submit" id="submit" name="send" class="submitBnt btn btn-primary" value="保存简历"
                         v-on:click="insert">
                 </div>
             </div>
@@ -555,7 +552,8 @@
                     });
             },
                 methods: {
-                    insert: function (response) {
+                    insert: function (response)
+                    {
                         if (this.name == '') {
                             alert('请输入姓名');
                             return
@@ -606,8 +604,12 @@
                                     window.location.reload()
                                 }
                                 else{
-                                    alert('修改完成');
-                                    window.location = "/userCenter.html"
+                                    var baocun=confirm('确定保存吗?');
+                                    if (baocun==true)
+                                    {
+                                        alert('保存成功');
+                                        window.location = "/userCenter.html"
+                                    }
                                 }
                             })
                             .catch(function (error) {

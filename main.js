@@ -263,7 +263,8 @@ app.use('/users', function (request, response) {
     }
     else if (request.body.code == "1002") {//用户申请职位
         console.log(request.body)
-        phone = request.session.phone
+        let phone = request.session.phone
+        let flag = request.body.flag;
         const name = request.session.username
         if (request.session.studentisadmin == 0) {
             var selectifresume = "select * from resume where phone = " + "'" + phone + "'"
@@ -278,33 +279,47 @@ app.use('/users', function (request, response) {
                     return
                 }
                 else {
-                    var selectjoblist = "select * from joblist where phone = " + "'" + phone + "'" + "and companyname = " + "'" + request.body.companyname + "'"
-                    query(selectjoblist, function (err, result) {
-                        if (err) {
-                            console.log(' error- ' + err.message)
-                            response.end('error')
-                            return
-                        }
-                        else if (result != 0) {
-                            response.end('noagain')
-                            return
-                        }
-                        else {
-                            var insertjoblist = "insert into joblist (phone,name,company,companyname, restatus,Date) value (?,?,?,?,?,sysdate())"
-                            var insertjoblistParams = [phone, name, request.body.company, request.body.companyname, 0]
-                            query(insertjoblist, insertjoblistParams, function (err, result) {
-                                if (err) {
-                                    console.log(' error- ' + err.message)
-                                    response.end('error')
-                                    return
-                                }
-                                else {
-                                    response.end("success")
-                                    return
-                                }
-                            })
-                        }
-                    })
+                    if (flag == "1") {
+                        let select = "select * from joblist where phone = " + "'" + phone + "'" + "and companyname = " + "'" + request.body.companyname + "'";
+                        query(select, function (err, result) {
+                            if (err) {
+                                console.log('error  - ' + err.message);
+                                response.end('error');
+                                return;
+                            }else if(result.length != 0){
+                                response.end('noagain');
+                                return;
+                            }
+                        })
+                    }else {
+                        var selectjoblist = "select * from joblist where phone = " + "'" + phone + "'" + "and companyname = " + "'" + request.body.companyname + "'"
+                        query(selectjoblist, function (err, result) {
+                            if (err) {
+                                console.log(' error- ' + err.message)
+                                response.end('error')
+                                return
+                            }
+                            else if (result != 0) {
+                                response.end('noagain')
+                                return
+                            }
+                            else {
+                                var insertjoblist = "insert into joblist (phone,name,company,companyname, restatus,Date) value (?,?,?,?,?,sysdate())"
+                                var insertjoblistParams = [phone, name, request.body.company, request.body.companyname, 0]
+                                query(insertjoblist, insertjoblistParams, function (err, result) {
+                                    if (err) {
+                                        console.log(' error- ' + err.message)
+                                        response.end('error')
+                                        return
+                                    }
+                                    else {
+                                        response.end("success")
+                                        return
+                                    }
+                                })
+                            }
+                        })
+                    }
                 }
             })
         }

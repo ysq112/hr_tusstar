@@ -449,7 +449,8 @@
                                 .post('/users', {
                                     code : '1002',
                                     companyname: self.info.companyname,
-                                    company: self.info.company
+                                    company: self.info.company,
+                                    flag : "1"
                                 })
                                 .then(function (response) {
                                     console.log("1002输出："+response.data);
@@ -509,13 +510,13 @@
                             .then(function(data) {
                                 if (data.data == "success") {
                                     alert('申请成功')
-                                    window.location.reload
+                                    window.location.reload();
                                 } else if (data.data == "noresume") {
                                     alert('您尚未新建简历')
                                     window.location = "/create-resume.html"
                                 } else if (data.data == "notstudent") {
                                     alert('您的身份不是学生')
-                                    window.location.reload
+                                    window.location.reload();
                                 } else if (data.data == "noagain")
                                 {
                                     alert('您已经申请过一次，请勿重新申请')
@@ -523,10 +524,10 @@
                                     self.shenqing="已申请此职位"
                                     console.log(self.keyong)
                                     console.log(self.shenqing)
-                                    window.location.reload
+                                    window.location.reload();
                                 } else if (data.data == "error") {
                                     alert('失败')
-                                    window.location.reload
+                                    window.location.reload();
                                 }
                             })
                             .catch(function(error) {

@@ -120,6 +120,7 @@
                 </div>
 
                 <!-- 导航栏 -->
+<!--                <iframe src="/topbar.html" frameborder="0" scrolling="yes" width="100%" height="100%"></iframe>-->
                 <div id="navigation">
                     <!-- Navigation Menu-->
                     <ul class="navigation-menu">
@@ -944,6 +945,7 @@
                         if (response.data == "nouser") {
                             self.name = "未登录"
                             self.iflogin = "/login.html"
+                            window.alert("用户未登录")
                         }
                         else {
                             self.name = response.data.username
@@ -986,7 +988,9 @@
                         console.log("累计申请数目："+self.applicationnum)
                     })
             },
-            methods: {
+            methods:
+            {
+
             }
         })
     </script>
